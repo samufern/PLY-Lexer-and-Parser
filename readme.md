@@ -1,91 +1,82 @@
 # PLY Lexer and Parser
 
-This repository contains an implementation of a lexer and parser using [PLY (Python Lex-Yacc)](https://www.dabeaz.com/ply/). The project demonstrates how to build a complete compiler front-end with lexical analysis, syntactic analysis, semantic actions, and intermediate code generation using PLY.
+## 📌 Project Overview
+This project is an implementation of a **lexical and syntax analyzer** using **Python Lex-Yacc (PLY)**. It provides the functionality to parse and analyze a custom programming language by breaking it down into tokens and checking its grammatical structure.
 
-## Overview
+## 🚀 Getting Started
 
-The project is structured to separate the different phases of compilation:
-
-- **Lexical Analysis:** Implemented in `lexico.py` to tokenize the input source code.
-- **Syntactic Analysis:** Handled by `sintactico.py` to parse the tokens and build a parse tree.
-- **Semantic Analysis & Intermediate Code Generation:** Semantic functions are defined in `funciones_semantico.py`, while intermediate code generation is performed in `codigo_intermedio.py`.
-- **Error Handling:** Custom exceptions and error management are provided in `excepciones.py`.
-
-A detailed project report/documentation is included in `PL_P3_Fernández_Mokov_memoria.pdf`.
-
-## Features
-
-- **Complete Lexer and Parser:** Built entirely with PLY.
-- **Semantic Actions:** Integrated semantic functions during parsing.
-- **Intermediate Code Generation:** Produces an intermediate representation of the source code.
-- **Robust Error Handling:** Custom exception handling for both lexical and syntactic errors.
-- **Testing Suite:** Includes test files in the `test_files` directory to validate compiler phases.
-
-## Requirements
+### 📋 Prerequisites
+Ensure you have the following dependencies installed before running the project:
 
 - Python 3.x
+- PLY (Python Lex-Yacc)
+
+Install PLY using:
+```sh
+pip install ply
+```
+
+### 🔧 Installation
+Clone the repository:
+```sh
+git clone https://github.com/your_username/PLY-Lexer-and-Parser.git
+cd PLY-Lexer-and-Parser
+```
+
+## 🏗 Project Structure
+```
+PLY-Lexer-and-Parser/
+│── main.py              # Main entry point
+│── lexico.py            # Lexical analyzer using PLY
+│── sintactico.py        # Syntax analyzer using PLY
+│── funciones_semantico.py # Semantic verification functions
+│── codigo_intermedio.py # Intermediate code generation
+│── excepciones.py       # Custom exceptions handling
+│── test_files/          # Test cases for different language features
+│    ├── test_caracter.txt
+│    ├── test_codigo_intermedio.txt
+│    ├── test_function.txt
+│    ├── test_function_sin_tipo.txt
+│    ├── test_function_tipo_diferente.txt
+│    ├── test_function_vacia.txt
+│    ├── test_general.txt
+│    ├── test_if.txt
+│    ├── test_if_no_boolean.txt
+│    ├── test_if_sin_condiciones.txt
+│    ├── test_if_sin_contenido.txt
+│    ├── test_let.txt
+│── parser.out           # PLY-generated parser table
+│── parsetab.py          # PLY-generated parse table
+│── __pycache__/         # Python bytecode cache
+│── PL_P3_Fernández_Mokov_memoria.pdf # Documentation of the project
+```
+
+## 🎯 Usage
+
+### Running the Lexer
+To run the **lexical analyzer**, use:
+```sh
+python main.py <input_file> -lex
+```
+
+### Running the Parser
+To run the **syntax analyzer**, use:
+```sh
+python main.py <input_file> -par
+```
+
+## ✅ Testing
+Several test cases are provided in the `test_files/` directory, covering various features of the language such as:
+- Character parsing
+- Code structure validation
+- Function definition and types
+- Conditional statements handling
+
+## 🛠 Built With
+- [Python 3](https://www.python.org/)
 - [PLY (Python Lex-Yacc)](https://www.dabeaz.com/ply/)
 
-## Installation
+## 🤝 Contributing
+If you wish to contribute, feel free to fork the repository, make improvements, and submit a pull request.
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/samufern/PLY-Lexer-and-Parser.git
-   ```
-2. **Navigate to the project directory:**
-   ```bash
-   cd PLY-Lexer-and-Parser
-   ```
-3. **(Optional) Create and activate a virtual environment:**
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-4. **Install PLY:**
-   ```bash
-   pip install ply
-   ```
-
-## Usage
-
-Run the main driver to start the compilation process:
-```bash
-python main.py
-```
-This will execute the lexer, parser, semantic analysis, and intermediate code generation on the provided source code.
-
-## File Structure
-
-```
-├── codigo_intermedio.py       # Intermediate code generator
-├── codigo_intermedio.out      # Output from intermediate code generation
-├── excepciones.py             # Custom exception handling
-├── funciones_semantico.py     # Semantic analysis functions
-├── lexico.py                  # Lexical analyzer using PLY
-├── main.py                    # Main entry point for the compiler
-├── parser.out                 # PLY parser debugging output
-├── parsetab.py                # PLY parser table (generated)
-├── sintactico.py              # Syntactic analyzer using PLY
-├── test_files/                # Directory containing test source code files
-└── PL_P3_Fernández_Mokov_memoria.pdf  # Project report/documentation
-```
-
-## Testing
-
-To run tests on sample source files, execute:
-```bash
-python main.py --test
-```
-Test results will be generated using the files in the `test_files` directory.
-
-## Documentation
-
-For further details on the design and implementation, please refer to the documentation in `PL_P3_Fernández_Mokov_memoria.pdf`.
-
-## Contributing
-
-Contributions, suggestions, and bug reports are welcome. Please open an issue or submit a pull request.
-
-## Contact
-
-For any inquiries, please contact me.
+---
