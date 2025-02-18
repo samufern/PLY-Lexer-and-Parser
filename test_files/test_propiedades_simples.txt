@@ -1,0 +1,8 @@
+type V = {hola: int};
+
+let var1 = {hola:2};
+let e = var1["hola"];
+let c = var1.hola;
+
+let var2;
+var2 = {hola: 34};

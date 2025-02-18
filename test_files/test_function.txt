@@ -1,0 +1,17 @@
+type H = {hola:int};
+
+function gte(a: int, b: int): boolean {
+    return a > b;
+}
+
+function gte(): boolean {
+    return tr;
+}
+
+function complejo(uno: H, dos: int): boolean {
+    return tr;
+}
+
+gte(23, 15);
+
+gte();

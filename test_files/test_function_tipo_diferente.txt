@@ -1,0 +1,11 @@
+function gte(a: int, b: int): boolean {
+    return a > b;
+}
+
+function gte(): boolean {
+    return tr;
+}
+
+gte(23, 15.1);
+
+gte();

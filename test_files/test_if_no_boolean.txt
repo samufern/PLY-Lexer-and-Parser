@@ -1,0 +1,21 @@
+let var1: Object, var2, var3;
+type Object = { prop1: float, "nested": int };
+var1 = {
+    prop1: 10e-1,
+    nested: 23};
+
+var2 = 10;
+
+function gte(a: int, b: int): boolean {
+    return a > b;
+}
+
+if (gte(var1.nested, var2)) {
+    var3 = 'Y';
+} else {
+    var3 = 'N';
+}
+
+while (gte(var1.nested, var2)) {
+    var3 = 'Y';
+}

@@ -1,0 +1,11 @@
+let num;
+num = 2;
+let is_positive;
+
+if (num >= 0) {
+    is_positive = tr;
+}
+
+if (num >= 2) {
+    is_positive = fl;
+}

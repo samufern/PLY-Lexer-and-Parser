@@ -1,0 +1,13 @@
+type H = {
+    loc: {city:character, country:character},
+    price : {euro:int, dollar:int, yen:int}
+};
+
+let my_house: H = {
+    loc: {city:'M', country:'E'},
+    price : {euro:100, dollar:95, yen:164}
+};
+
+let a = my_house.price["dollar"];
+let c = my_house.price.euro;
+let b = my_house.loc["city"];

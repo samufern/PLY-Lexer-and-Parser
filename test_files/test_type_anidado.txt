@@ -1,0 +1,7 @@
+type H = {
+    loc: {city:float}
+};
+
+let var = {
+    loc: {city: 2.2}
+};

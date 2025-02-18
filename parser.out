@@ -1,0 +1,4381 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> archivo
+Rule 1     archivo -> lineas
+Rule 2     archivo -> lambda
+Rule 3     lambda -> <empty>
+Rule 4     lineas -> linea_normal ;
+Rule 5     lineas -> linea_especial
+Rule 6     lineas -> linea_normal ; lineas
+Rule 7     lineas -> linea_especial lineas
+Rule 8     linea_normal -> llamada_funcion
+Rule 9     linea_normal -> asignacion
+Rule 10    linea_normal -> declaracion
+Rule 11    linea_especial -> COM_MULTI
+Rule 12    linea_especial -> COM_SIMPLE
+Rule 13    linea_especial -> funcion
+Rule 14    linea_especial -> condicional
+Rule 15    expresion -> expresion + expresion
+Rule 16    expresion -> expresion - expresion
+Rule 17    expresion -> expresion * expresion
+Rule 18    expresion -> expresion / expresion
+Rule 19    expresion -> expresion < expresion
+Rule 20    expresion -> expresion > expresion
+Rule 21    expresion -> expresion MAYORIG expresion
+Rule 22    expresion -> expresion MENORIG expresion
+Rule 23    expresion -> expresion IGUAL expresion
+Rule 24    expresion -> expresion DISYUNCION expresion
+Rule 25    expresion -> expresion CONJUNCION expresion
+Rule 26    expresion -> - expresion
+Rule 27    expresion -> ! expresion
+Rule 28    expresion -> ( expresion )
+Rule 29    expresion -> ENTERO
+Rule 30    expresion -> REAL
+Rule 31    expresion -> TR
+Rule 32    expresion -> FL
+Rule 33    expresion -> NULL
+Rule 34    expresion -> CARACTER
+Rule 35    expresion -> IDENTIFIER
+Rule 36    expresion -> propiedad
+Rule 37    expresion -> llamada_funcion
+Rule 38    expresion -> objeto_expresion
+Rule 39    propiedad -> IDENTIFIER [ STRING ]
+Rule 40    propiedad -> IDENTIFIER . propiedad
+Rule 41    propiedad -> IDENTIFIER . IDENTIFIER
+Rule 42    propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER
+Rule 43    asignacion -> IDENTIFIER = expresion
+Rule 44    asignacion -> propiedad = expresion
+Rule 45    declaracion -> LET lista_declaraciones
+Rule 46    declaracion -> TYPE IDENTIFIER = objeto_tipo
+Rule 47    lista_declaraciones -> contenido_declaracion
+Rule 48    lista_declaraciones -> contenido_declaracion , lista_declaraciones
+Rule 49    contenido_declaracion -> IDENTIFIER
+Rule 50    contenido_declaracion -> IDENTIFIER : IDENTIFIER
+Rule 51    contenido_declaracion -> IDENTIFIER : IDENTIFIER = expresion
+Rule 52    contenido_declaracion -> IDENTIFIER = expresion
+Rule 53    condicional -> IF condiciones contenido_if
+Rule 54    condicional -> IF condiciones contenido_if_else contenido_else
+Rule 55    condicional -> WHILE condiciones_while contenido_while
+Rule 56    condiciones -> ( expresion )
+Rule 57    condiciones_while -> ( expresion )
+Rule 58    contenido_while -> { lineas_cond }
+Rule 59    contenido_if -> { lineas_cond }
+Rule 60    contenido_if_else -> { lineas_cond }
+Rule 61    contenido_else -> ELSE { lineas_cond }
+Rule 62    lineas_cond -> linea_cond
+Rule 63    lineas_cond -> linea_cond lineas_cond
+Rule 64    linea_cond -> linea_normal_cond ;
+Rule 65    linea_cond -> linea_especial_cond
+Rule 66    linea_normal_cond -> llamada_funcion
+Rule 67    linea_normal_cond -> asignacion
+Rule 68    linea_normal_cond -> declaracion
+Rule 69    linea_especial_cond -> COM_MULTI
+Rule 70    linea_especial_cond -> COM_SIMPLE
+Rule 71    linea_especial_cond -> condicional
+Rule 72    funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion }
+Rule 73    contenido_funcion -> lineas_fun RETURN expresion ;
+Rule 74    contenido_funcion -> RETURN expresion ;
+Rule 75    lineas_fun -> linea_normal_fun ;
+Rule 76    lineas_fun -> linea_especial_fun
+Rule 77    lineas_fun -> linea_normal_fun ; lineas_fun
+Rule 78    lineas_fun -> linea_especial_fun lineas_fun
+Rule 79    linea_normal_fun -> llamada_funcion
+Rule 80    linea_normal_fun -> asignacion
+Rule 81    linea_normal_fun -> declaracion
+Rule 82    linea_especial_fun -> COM_MULTI
+Rule 83    linea_especial_fun -> COM_SIMPLE
+Rule 84    linea_especial_fun -> condicional
+Rule 85    argumentos -> argumento
+Rule 86    argumentos -> argumento , argumentos
+Rule 87    argumentos -> lambda
+Rule 88    argumento -> IDENTIFIER : tipo
+Rule 89    llamada_funcion -> IDENTIFIER ( parametros_funcion )
+Rule 90    parametros_funcion -> expresion
+Rule 91    parametros_funcion -> expresion , parametros_funcion
+Rule 92    parametros_funcion -> lambda
+Rule 93    objeto_expresion -> { pares_expresion }
+Rule 94    pares_expresion -> par_expresion , pares_expresion
+Rule 95    pares_expresion -> par_expresion
+Rule 96    par_expresion -> clave_expresion : expresion
+Rule 97    clave_expresion -> IDENTIFIER
+Rule 98    clave_expresion -> STRING
+Rule 99    objeto_tipo -> { pares_tipo }
+Rule 100   pares_tipo -> par_tipo , pares_tipo
+Rule 101   pares_tipo -> par_tipo
+Rule 102   par_tipo -> clave_tipo : tipo
+Rule 103   clave_tipo -> IDENTIFIER
+Rule 104   clave_tipo -> STRING
+Rule 105   tipo -> INT
+Rule 106   tipo -> FLOAT
+Rule 107   tipo -> BOOLEAN
+Rule 108   tipo -> CHARACTER
+Rule 109   tipo -> IDENTIFIER
+Rule 110   tipo -> objeto_tipo
+
+Terminals, with rules where they appear
+
+!                    : 27
+(                    : 28 56 57 72 89
+)                    : 28 56 57 72 89
+*                    : 17
++                    : 15
+,                    : 48 86 91 94 100
+-                    : 16 26
+.                    : 40 41 42
+/                    : 18
+:                    : 50 51 72 88 96 102
+;                    : 4 6 64 73 74 75 77
+<                    : 19
+=                    : 43 44 46 51 52
+>                    : 20
+BOOLEAN              : 107
+CARACTER             : 34
+CHARACTER            : 108
+COM_MULTI            : 11 69 82
+COM_SIMPLE           : 12 70 83
+CONJUNCION           : 25
+DISYUNCION           : 24
+ELSE                 : 61
+ENTERO               : 29
+FL                   : 32
+FLOAT                : 106
+FUNCTION             : 72
+IDENTIFIER           : 35 39 40 41 41 42 42 43 46 49 50 50 51 51 52 72 88 89 97 103 109
+IF                   : 53 54
+IGUAL                : 23
+INT                  : 105
+LET                  : 45
+MAYORIG              : 21
+MENORIG              : 22
+NULL                 : 33
+REAL                 : 30
+RETURN               : 73 74
+STRING               : 39 42 98 104
+TR                   : 31
+TYPE                 : 46
+WHILE                : 55
+[                    : 39 42
+]                    : 39 42
+error                : 
+{                    : 58 59 60 61 72 93 99
+}                    : 58 59 60 61 72 93 99
+
+Nonterminals, with rules where they appear
+
+archivo              : 0
+argumento            : 85 86
+argumentos           : 72 86
+asignacion           : 9 67 80
+clave_expresion      : 96
+clave_tipo           : 102
+condicional          : 14 71 84
+condiciones          : 53 54
+condiciones_while    : 55
+contenido_declaracion : 47 48
+contenido_else       : 54
+contenido_funcion    : 72
+contenido_if         : 53
+contenido_if_else    : 54
+contenido_while      : 55
+declaracion          : 10 68 81
+expresion            : 15 15 16 16 17 17 18 18 19 19 20 20 21 21 22 22 23 23 24 24 25 25 26 27 28 43 44 51 52 56 57 73 74 90 91 96
+funcion              : 13
+lambda               : 2 87 92
+linea_cond           : 62 63
+linea_especial       : 5 7
+linea_especial_cond  : 65
+linea_especial_fun   : 76 78
+linea_normal         : 4 6
+linea_normal_cond    : 64
+linea_normal_fun     : 75 77
+lineas               : 1 6 7
+lineas_cond          : 58 59 60 61 63
+lineas_fun           : 73 77 78
+lista_declaraciones  : 45 48
+llamada_funcion      : 8 37 66 79
+objeto_expresion     : 38
+objeto_tipo          : 46 110
+par_expresion        : 94 95
+par_tipo             : 100 101
+parametros_funcion   : 89 91
+pares_expresion      : 93 94
+pares_tipo           : 99 100
+propiedad            : 36 40 44
+tipo                 : 72 88 102
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . archivo
+    (1) archivo -> . lineas
+    (2) archivo -> . lambda
+    (4) lineas -> . linea_normal ;
+    (5) lineas -> . linea_especial
+    (6) lineas -> . linea_normal ; lineas
+    (7) lineas -> . linea_especial lineas
+    (3) lambda -> .
+    (8) linea_normal -> . llamada_funcion
+    (9) linea_normal -> . asignacion
+    (10) linea_normal -> . declaracion
+    (11) linea_especial -> . COM_MULTI
+    (12) linea_especial -> . COM_SIMPLE
+    (13) linea_especial -> . funcion
+    (14) linea_especial -> . condicional
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (43) asignacion -> . IDENTIFIER = expresion
+    (44) asignacion -> . propiedad = expresion
+    (45) declaracion -> . LET lista_declaraciones
+    (46) declaracion -> . TYPE IDENTIFIER = objeto_tipo
+    (72) funcion -> . FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion }
+    (53) condicional -> . IF condiciones contenido_if
+    (54) condicional -> . IF condiciones contenido_if_else contenido_else
+    (55) condicional -> . WHILE condiciones_while contenido_while
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+
+    $end            reduce using rule 3 (lambda -> .)
+    COM_MULTI       shift and go to state 9
+    COM_SIMPLE      shift and go to state 10
+    IDENTIFIER      shift and go to state 13
+    LET             shift and go to state 15
+    TYPE            shift and go to state 16
+    FUNCTION        shift and go to state 17
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+
+    archivo                        shift and go to state 1
+    lineas                         shift and go to state 2
+    lambda                         shift and go to state 3
+    linea_normal                   shift and go to state 4
+    linea_especial                 shift and go to state 5
+    llamada_funcion                shift and go to state 6
+    asignacion                     shift and go to state 7
+    declaracion                    shift and go to state 8
+    funcion                        shift and go to state 11
+    condicional                    shift and go to state 12
+    propiedad                      shift and go to state 14
+
+state 1
+
+    (0) S' -> archivo .
+
+
+
+state 2
+
+    (1) archivo -> lineas .
+
+    $end            reduce using rule 1 (archivo -> lineas .)
+
+
+state 3
+
+    (2) archivo -> lambda .
+
+    $end            reduce using rule 2 (archivo -> lambda .)
+
+
+state 4
+
+    (4) lineas -> linea_normal . ;
+    (6) lineas -> linea_normal . ; lineas
+
+    ;               shift and go to state 20
+
+
+state 5
+
+    (5) lineas -> linea_especial .
+    (7) lineas -> linea_especial . lineas
+    (4) lineas -> . linea_normal ;
+    (5) lineas -> . linea_especial
+    (6) lineas -> . linea_normal ; lineas
+    (7) lineas -> . linea_especial lineas
+    (8) linea_normal -> . llamada_funcion
+    (9) linea_normal -> . asignacion
+    (10) linea_normal -> . declaracion
+    (11) linea_especial -> . COM_MULTI
+    (12) linea_especial -> . COM_SIMPLE
+    (13) linea_especial -> . funcion
+    (14) linea_especial -> . condicional
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (43) asignacion -> . IDENTIFIER = expresion
+    (44) asignacion -> . propiedad = expresion
+    (45) declaracion -> . LET lista_declaraciones
+    (46) declaracion -> . TYPE IDENTIFIER = objeto_tipo
+    (72) funcion -> . FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion }
+    (53) condicional -> . IF condiciones contenido_if
+    (54) condicional -> . IF condiciones contenido_if_else contenido_else
+    (55) condicional -> . WHILE condiciones_while contenido_while
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+
+    $end            reduce using rule 5 (lineas -> linea_especial .)
+    COM_MULTI       shift and go to state 9
+    COM_SIMPLE      shift and go to state 10
+    IDENTIFIER      shift and go to state 13
+    LET             shift and go to state 15
+    TYPE            shift and go to state 16
+    FUNCTION        shift and go to state 17
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+
+    linea_especial                 shift and go to state 5
+    lineas                         shift and go to state 21
+    linea_normal                   shift and go to state 4
+    llamada_funcion                shift and go to state 6
+    asignacion                     shift and go to state 7
+    declaracion                    shift and go to state 8
+    funcion                        shift and go to state 11
+    condicional                    shift and go to state 12
+    propiedad                      shift and go to state 14
+
+state 6
+
+    (8) linea_normal -> llamada_funcion .
+
+    ;               reduce using rule 8 (linea_normal -> llamada_funcion .)
+
+
+state 7
+
+    (9) linea_normal -> asignacion .
+
+    ;               reduce using rule 9 (linea_normal -> asignacion .)
+
+
+state 8
+
+    (10) linea_normal -> declaracion .
+
+    ;               reduce using rule 10 (linea_normal -> declaracion .)
+
+
+state 9
+
+    (11) linea_especial -> COM_MULTI .
+
+    COM_MULTI       reduce using rule 11 (linea_especial -> COM_MULTI .)
+    COM_SIMPLE      reduce using rule 11 (linea_especial -> COM_MULTI .)
+    IDENTIFIER      reduce using rule 11 (linea_especial -> COM_MULTI .)
+    LET             reduce using rule 11 (linea_especial -> COM_MULTI .)
+    TYPE            reduce using rule 11 (linea_especial -> COM_MULTI .)
+    FUNCTION        reduce using rule 11 (linea_especial -> COM_MULTI .)
+    IF              reduce using rule 11 (linea_especial -> COM_MULTI .)
+    WHILE           reduce using rule 11 (linea_especial -> COM_MULTI .)
+    $end            reduce using rule 11 (linea_especial -> COM_MULTI .)
+
+
+state 10
+
+    (12) linea_especial -> COM_SIMPLE .
+
+    COM_MULTI       reduce using rule 12 (linea_especial -> COM_SIMPLE .)
+    COM_SIMPLE      reduce using rule 12 (linea_especial -> COM_SIMPLE .)
+    IDENTIFIER      reduce using rule 12 (linea_especial -> COM_SIMPLE .)
+    LET             reduce using rule 12 (linea_especial -> COM_SIMPLE .)
+    TYPE            reduce using rule 12 (linea_especial -> COM_SIMPLE .)
+    FUNCTION        reduce using rule 12 (linea_especial -> COM_SIMPLE .)
+    IF              reduce using rule 12 (linea_especial -> COM_SIMPLE .)
+    WHILE           reduce using rule 12 (linea_especial -> COM_SIMPLE .)
+    $end            reduce using rule 12 (linea_especial -> COM_SIMPLE .)
+
+
+state 11
+
+    (13) linea_especial -> funcion .
+
+    COM_MULTI       reduce using rule 13 (linea_especial -> funcion .)
+    COM_SIMPLE      reduce using rule 13 (linea_especial -> funcion .)
+    IDENTIFIER      reduce using rule 13 (linea_especial -> funcion .)
+    LET             reduce using rule 13 (linea_especial -> funcion .)
+    TYPE            reduce using rule 13 (linea_especial -> funcion .)
+    FUNCTION        reduce using rule 13 (linea_especial -> funcion .)
+    IF              reduce using rule 13 (linea_especial -> funcion .)
+    WHILE           reduce using rule 13 (linea_especial -> funcion .)
+    $end            reduce using rule 13 (linea_especial -> funcion .)
+
+
+state 12
+
+    (14) linea_especial -> condicional .
+
+    COM_MULTI       reduce using rule 14 (linea_especial -> condicional .)
+    COM_SIMPLE      reduce using rule 14 (linea_especial -> condicional .)
+    IDENTIFIER      reduce using rule 14 (linea_especial -> condicional .)
+    LET             reduce using rule 14 (linea_especial -> condicional .)
+    TYPE            reduce using rule 14 (linea_especial -> condicional .)
+    FUNCTION        reduce using rule 14 (linea_especial -> condicional .)
+    IF              reduce using rule 14 (linea_especial -> condicional .)
+    WHILE           reduce using rule 14 (linea_especial -> condicional .)
+    $end            reduce using rule 14 (linea_especial -> condicional .)
+
+
+state 13
+
+    (89) llamada_funcion -> IDENTIFIER . ( parametros_funcion )
+    (43) asignacion -> IDENTIFIER . = expresion
+    (39) propiedad -> IDENTIFIER . [ STRING ]
+    (40) propiedad -> IDENTIFIER . . propiedad
+    (41) propiedad -> IDENTIFIER . . IDENTIFIER
+    (42) propiedad -> IDENTIFIER . [ STRING ] . IDENTIFIER
+
+    (               shift and go to state 22
+    =               shift and go to state 23
+    [               shift and go to state 24
+    .               shift and go to state 25
+
+
+state 14
+
+    (44) asignacion -> propiedad . = expresion
+
+    =               shift and go to state 26
+
+
+state 15
+
+    (45) declaracion -> LET . lista_declaraciones
+    (47) lista_declaraciones -> . contenido_declaracion
+    (48) lista_declaraciones -> . contenido_declaracion , lista_declaraciones
+    (49) contenido_declaracion -> . IDENTIFIER
+    (50) contenido_declaracion -> . IDENTIFIER : IDENTIFIER
+    (51) contenido_declaracion -> . IDENTIFIER : IDENTIFIER = expresion
+    (52) contenido_declaracion -> . IDENTIFIER = expresion
+
+    IDENTIFIER      shift and go to state 29
+
+    lista_declaraciones            shift and go to state 27
+    contenido_declaracion          shift and go to state 28
+
+state 16
+
+    (46) declaracion -> TYPE . IDENTIFIER = objeto_tipo
+
+    IDENTIFIER      shift and go to state 30
+
+
+state 17
+
+    (72) funcion -> FUNCTION . IDENTIFIER ( argumentos ) : tipo { contenido_funcion }
+
+    IDENTIFIER      shift and go to state 31
+
+
+state 18
+
+    (53) condicional -> IF . condiciones contenido_if
+    (54) condicional -> IF . condiciones contenido_if_else contenido_else
+    (56) condiciones -> . ( expresion )
+
+    (               shift and go to state 33
+
+    condiciones                    shift and go to state 32
+
+state 19
+
+    (55) condicional -> WHILE . condiciones_while contenido_while
+    (57) condiciones_while -> . ( expresion )
+
+    (               shift and go to state 35
+
+    condiciones_while              shift and go to state 34
+
+state 20
+
+    (4) lineas -> linea_normal ; .
+    (6) lineas -> linea_normal ; . lineas
+    (4) lineas -> . linea_normal ;
+    (5) lineas -> . linea_especial
+    (6) lineas -> . linea_normal ; lineas
+    (7) lineas -> . linea_especial lineas
+    (8) linea_normal -> . llamada_funcion
+    (9) linea_normal -> . asignacion
+    (10) linea_normal -> . declaracion
+    (11) linea_especial -> . COM_MULTI
+    (12) linea_especial -> . COM_SIMPLE
+    (13) linea_especial -> . funcion
+    (14) linea_especial -> . condicional
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (43) asignacion -> . IDENTIFIER = expresion
+    (44) asignacion -> . propiedad = expresion
+    (45) declaracion -> . LET lista_declaraciones
+    (46) declaracion -> . TYPE IDENTIFIER = objeto_tipo
+    (72) funcion -> . FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion }
+    (53) condicional -> . IF condiciones contenido_if
+    (54) condicional -> . IF condiciones contenido_if_else contenido_else
+    (55) condicional -> . WHILE condiciones_while contenido_while
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+
+    $end            reduce using rule 4 (lineas -> linea_normal ; .)
+    COM_MULTI       shift and go to state 9
+    COM_SIMPLE      shift and go to state 10
+    IDENTIFIER      shift and go to state 13
+    LET             shift and go to state 15
+    TYPE            shift and go to state 16
+    FUNCTION        shift and go to state 17
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+
+    linea_normal                   shift and go to state 4
+    lineas                         shift and go to state 36
+    linea_especial                 shift and go to state 5
+    llamada_funcion                shift and go to state 6
+    asignacion                     shift and go to state 7
+    declaracion                    shift and go to state 8
+    funcion                        shift and go to state 11
+    condicional                    shift and go to state 12
+    propiedad                      shift and go to state 14
+
+state 21
+
+    (7) lineas -> linea_especial lineas .
+
+    $end            reduce using rule 7 (lineas -> linea_especial lineas .)
+
+
+state 22
+
+    (89) llamada_funcion -> IDENTIFIER ( . parametros_funcion )
+    (90) parametros_funcion -> . expresion
+    (91) parametros_funcion -> . expresion , parametros_funcion
+    (92) parametros_funcion -> . lambda
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (3) lambda -> .
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    )               reduce using rule 3 (lambda -> .)
+    {               shift and go to state 53
+
+    parametros_funcion             shift and go to state 39
+    expresion                      shift and go to state 40
+    lambda                         shift and go to state 41
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 23
+
+    (43) asignacion -> IDENTIFIER = . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 54
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 24
+
+    (39) propiedad -> IDENTIFIER [ . STRING ]
+    (42) propiedad -> IDENTIFIER [ . STRING ] . IDENTIFIER
+
+    STRING          shift and go to state 55
+
+
+state 25
+
+    (40) propiedad -> IDENTIFIER . . propiedad
+    (41) propiedad -> IDENTIFIER . . IDENTIFIER
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 56
+
+    propiedad                      shift and go to state 57
+
+state 26
+
+    (44) asignacion -> propiedad = . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    propiedad                      shift and go to state 50
+    expresion                      shift and go to state 58
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 27
+
+    (45) declaracion -> LET lista_declaraciones .
+
+    ;               reduce using rule 45 (declaracion -> LET lista_declaraciones .)
+
+
+state 28
+
+    (47) lista_declaraciones -> contenido_declaracion .
+    (48) lista_declaraciones -> contenido_declaracion . , lista_declaraciones
+
+    ;               reduce using rule 47 (lista_declaraciones -> contenido_declaracion .)
+    ,               shift and go to state 59
+
+
+state 29
+
+    (49) contenido_declaracion -> IDENTIFIER .
+    (50) contenido_declaracion -> IDENTIFIER . : IDENTIFIER
+    (51) contenido_declaracion -> IDENTIFIER . : IDENTIFIER = expresion
+    (52) contenido_declaracion -> IDENTIFIER . = expresion
+
+    ,               reduce using rule 49 (contenido_declaracion -> IDENTIFIER .)
+    ;               reduce using rule 49 (contenido_declaracion -> IDENTIFIER .)
+    :               shift and go to state 60
+    =               shift and go to state 61
+
+
+state 30
+
+    (46) declaracion -> TYPE IDENTIFIER . = objeto_tipo
+
+    =               shift and go to state 62
+
+
+state 31
+
+    (72) funcion -> FUNCTION IDENTIFIER . ( argumentos ) : tipo { contenido_funcion }
+
+    (               shift and go to state 63
+
+
+state 32
+
+    (53) condicional -> IF condiciones . contenido_if
+    (54) condicional -> IF condiciones . contenido_if_else contenido_else
+    (59) contenido_if -> . { lineas_cond }
+    (60) contenido_if_else -> . { lineas_cond }
+
+    {               shift and go to state 66
+
+    contenido_if                   shift and go to state 64
+    contenido_if_else              shift and go to state 65
+
+state 33
+
+    (56) condiciones -> ( . expresion )
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 67
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 34
+
+    (55) condicional -> WHILE condiciones_while . contenido_while
+    (58) contenido_while -> . { lineas_cond }
+
+    {               shift and go to state 69
+
+    contenido_while                shift and go to state 68
+
+state 35
+
+    (57) condiciones_while -> ( . expresion )
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 70
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 36
+
+    (6) lineas -> linea_normal ; lineas .
+
+    $end            reduce using rule 6 (lineas -> linea_normal ; lineas .)
+
+
+state 37
+
+    (35) expresion -> IDENTIFIER .
+    (39) propiedad -> IDENTIFIER . [ STRING ]
+    (40) propiedad -> IDENTIFIER . . propiedad
+    (41) propiedad -> IDENTIFIER . . IDENTIFIER
+    (42) propiedad -> IDENTIFIER . [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> IDENTIFIER . ( parametros_funcion )
+
+    ,               reduce using rule 35 (expresion -> IDENTIFIER .)
+    +               reduce using rule 35 (expresion -> IDENTIFIER .)
+    -               reduce using rule 35 (expresion -> IDENTIFIER .)
+    *               reduce using rule 35 (expresion -> IDENTIFIER .)
+    /               reduce using rule 35 (expresion -> IDENTIFIER .)
+    <               reduce using rule 35 (expresion -> IDENTIFIER .)
+    >               reduce using rule 35 (expresion -> IDENTIFIER .)
+    MAYORIG         reduce using rule 35 (expresion -> IDENTIFIER .)
+    MENORIG         reduce using rule 35 (expresion -> IDENTIFIER .)
+    IGUAL           reduce using rule 35 (expresion -> IDENTIFIER .)
+    DISYUNCION      reduce using rule 35 (expresion -> IDENTIFIER .)
+    CONJUNCION      reduce using rule 35 (expresion -> IDENTIFIER .)
+    )               reduce using rule 35 (expresion -> IDENTIFIER .)
+    ;               reduce using rule 35 (expresion -> IDENTIFIER .)
+    }               reduce using rule 35 (expresion -> IDENTIFIER .)
+    [               shift and go to state 24
+    .               shift and go to state 25
+    (               shift and go to state 22
+
+
+state 38
+
+    (28) expresion -> ( . expresion )
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 71
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 39
+
+    (89) llamada_funcion -> IDENTIFIER ( parametros_funcion . )
+
+    )               shift and go to state 72
+
+
+state 40
+
+    (90) parametros_funcion -> expresion .
+    (91) parametros_funcion -> expresion . , parametros_funcion
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    )               reduce using rule 90 (parametros_funcion -> expresion .)
+    ,               shift and go to state 73
+    +               shift and go to state 74
+    -               shift and go to state 75
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+
+state 41
+
+    (92) parametros_funcion -> lambda .
+
+    )               reduce using rule 92 (parametros_funcion -> lambda .)
+
+
+state 42
+
+    (26) expresion -> - . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 85
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 43
+
+    (27) expresion -> ! . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 86
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 44
+
+    (29) expresion -> ENTERO .
+
+    ,               reduce using rule 29 (expresion -> ENTERO .)
+    +               reduce using rule 29 (expresion -> ENTERO .)
+    -               reduce using rule 29 (expresion -> ENTERO .)
+    *               reduce using rule 29 (expresion -> ENTERO .)
+    /               reduce using rule 29 (expresion -> ENTERO .)
+    <               reduce using rule 29 (expresion -> ENTERO .)
+    >               reduce using rule 29 (expresion -> ENTERO .)
+    MAYORIG         reduce using rule 29 (expresion -> ENTERO .)
+    MENORIG         reduce using rule 29 (expresion -> ENTERO .)
+    IGUAL           reduce using rule 29 (expresion -> ENTERO .)
+    DISYUNCION      reduce using rule 29 (expresion -> ENTERO .)
+    CONJUNCION      reduce using rule 29 (expresion -> ENTERO .)
+    )               reduce using rule 29 (expresion -> ENTERO .)
+    ;               reduce using rule 29 (expresion -> ENTERO .)
+    }               reduce using rule 29 (expresion -> ENTERO .)
+
+
+state 45
+
+    (30) expresion -> REAL .
+
+    ,               reduce using rule 30 (expresion -> REAL .)
+    +               reduce using rule 30 (expresion -> REAL .)
+    -               reduce using rule 30 (expresion -> REAL .)
+    *               reduce using rule 30 (expresion -> REAL .)
+    /               reduce using rule 30 (expresion -> REAL .)
+    <               reduce using rule 30 (expresion -> REAL .)
+    >               reduce using rule 30 (expresion -> REAL .)
+    MAYORIG         reduce using rule 30 (expresion -> REAL .)
+    MENORIG         reduce using rule 30 (expresion -> REAL .)
+    IGUAL           reduce using rule 30 (expresion -> REAL .)
+    DISYUNCION      reduce using rule 30 (expresion -> REAL .)
+    CONJUNCION      reduce using rule 30 (expresion -> REAL .)
+    )               reduce using rule 30 (expresion -> REAL .)
+    ;               reduce using rule 30 (expresion -> REAL .)
+    }               reduce using rule 30 (expresion -> REAL .)
+
+
+state 46
+
+    (31) expresion -> TR .
+
+    ,               reduce using rule 31 (expresion -> TR .)
+    +               reduce using rule 31 (expresion -> TR .)
+    -               reduce using rule 31 (expresion -> TR .)
+    *               reduce using rule 31 (expresion -> TR .)
+    /               reduce using rule 31 (expresion -> TR .)
+    <               reduce using rule 31 (expresion -> TR .)
+    >               reduce using rule 31 (expresion -> TR .)
+    MAYORIG         reduce using rule 31 (expresion -> TR .)
+    MENORIG         reduce using rule 31 (expresion -> TR .)
+    IGUAL           reduce using rule 31 (expresion -> TR .)
+    DISYUNCION      reduce using rule 31 (expresion -> TR .)
+    CONJUNCION      reduce using rule 31 (expresion -> TR .)
+    )               reduce using rule 31 (expresion -> TR .)
+    ;               reduce using rule 31 (expresion -> TR .)
+    }               reduce using rule 31 (expresion -> TR .)
+
+
+state 47
+
+    (32) expresion -> FL .
+
+    ,               reduce using rule 32 (expresion -> FL .)
+    +               reduce using rule 32 (expresion -> FL .)
+    -               reduce using rule 32 (expresion -> FL .)
+    *               reduce using rule 32 (expresion -> FL .)
+    /               reduce using rule 32 (expresion -> FL .)
+    <               reduce using rule 32 (expresion -> FL .)
+    >               reduce using rule 32 (expresion -> FL .)
+    MAYORIG         reduce using rule 32 (expresion -> FL .)
+    MENORIG         reduce using rule 32 (expresion -> FL .)
+    IGUAL           reduce using rule 32 (expresion -> FL .)
+    DISYUNCION      reduce using rule 32 (expresion -> FL .)
+    CONJUNCION      reduce using rule 32 (expresion -> FL .)
+    )               reduce using rule 32 (expresion -> FL .)
+    ;               reduce using rule 32 (expresion -> FL .)
+    }               reduce using rule 32 (expresion -> FL .)
+
+
+state 48
+
+    (33) expresion -> NULL .
+
+    ,               reduce using rule 33 (expresion -> NULL .)
+    +               reduce using rule 33 (expresion -> NULL .)
+    -               reduce using rule 33 (expresion -> NULL .)
+    *               reduce using rule 33 (expresion -> NULL .)
+    /               reduce using rule 33 (expresion -> NULL .)
+    <               reduce using rule 33 (expresion -> NULL .)
+    >               reduce using rule 33 (expresion -> NULL .)
+    MAYORIG         reduce using rule 33 (expresion -> NULL .)
+    MENORIG         reduce using rule 33 (expresion -> NULL .)
+    IGUAL           reduce using rule 33 (expresion -> NULL .)
+    DISYUNCION      reduce using rule 33 (expresion -> NULL .)
+    CONJUNCION      reduce using rule 33 (expresion -> NULL .)
+    )               reduce using rule 33 (expresion -> NULL .)
+    ;               reduce using rule 33 (expresion -> NULL .)
+    }               reduce using rule 33 (expresion -> NULL .)
+
+
+state 49
+
+    (34) expresion -> CARACTER .
+
+    ,               reduce using rule 34 (expresion -> CARACTER .)
+    +               reduce using rule 34 (expresion -> CARACTER .)
+    -               reduce using rule 34 (expresion -> CARACTER .)
+    *               reduce using rule 34 (expresion -> CARACTER .)
+    /               reduce using rule 34 (expresion -> CARACTER .)
+    <               reduce using rule 34 (expresion -> CARACTER .)
+    >               reduce using rule 34 (expresion -> CARACTER .)
+    MAYORIG         reduce using rule 34 (expresion -> CARACTER .)
+    MENORIG         reduce using rule 34 (expresion -> CARACTER .)
+    IGUAL           reduce using rule 34 (expresion -> CARACTER .)
+    DISYUNCION      reduce using rule 34 (expresion -> CARACTER .)
+    CONJUNCION      reduce using rule 34 (expresion -> CARACTER .)
+    )               reduce using rule 34 (expresion -> CARACTER .)
+    ;               reduce using rule 34 (expresion -> CARACTER .)
+    }               reduce using rule 34 (expresion -> CARACTER .)
+
+
+state 50
+
+    (36) expresion -> propiedad .
+
+    ,               reduce using rule 36 (expresion -> propiedad .)
+    +               reduce using rule 36 (expresion -> propiedad .)
+    -               reduce using rule 36 (expresion -> propiedad .)
+    *               reduce using rule 36 (expresion -> propiedad .)
+    /               reduce using rule 36 (expresion -> propiedad .)
+    <               reduce using rule 36 (expresion -> propiedad .)
+    >               reduce using rule 36 (expresion -> propiedad .)
+    MAYORIG         reduce using rule 36 (expresion -> propiedad .)
+    MENORIG         reduce using rule 36 (expresion -> propiedad .)
+    IGUAL           reduce using rule 36 (expresion -> propiedad .)
+    DISYUNCION      reduce using rule 36 (expresion -> propiedad .)
+    CONJUNCION      reduce using rule 36 (expresion -> propiedad .)
+    )               reduce using rule 36 (expresion -> propiedad .)
+    ;               reduce using rule 36 (expresion -> propiedad .)
+    }               reduce using rule 36 (expresion -> propiedad .)
+
+
+state 51
+
+    (37) expresion -> llamada_funcion .
+
+    ,               reduce using rule 37 (expresion -> llamada_funcion .)
+    +               reduce using rule 37 (expresion -> llamada_funcion .)
+    -               reduce using rule 37 (expresion -> llamada_funcion .)
+    *               reduce using rule 37 (expresion -> llamada_funcion .)
+    /               reduce using rule 37 (expresion -> llamada_funcion .)
+    <               reduce using rule 37 (expresion -> llamada_funcion .)
+    >               reduce using rule 37 (expresion -> llamada_funcion .)
+    MAYORIG         reduce using rule 37 (expresion -> llamada_funcion .)
+    MENORIG         reduce using rule 37 (expresion -> llamada_funcion .)
+    IGUAL           reduce using rule 37 (expresion -> llamada_funcion .)
+    DISYUNCION      reduce using rule 37 (expresion -> llamada_funcion .)
+    CONJUNCION      reduce using rule 37 (expresion -> llamada_funcion .)
+    )               reduce using rule 37 (expresion -> llamada_funcion .)
+    ;               reduce using rule 37 (expresion -> llamada_funcion .)
+    }               reduce using rule 37 (expresion -> llamada_funcion .)
+
+
+state 52
+
+    (38) expresion -> objeto_expresion .
+
+    ,               reduce using rule 38 (expresion -> objeto_expresion .)
+    +               reduce using rule 38 (expresion -> objeto_expresion .)
+    -               reduce using rule 38 (expresion -> objeto_expresion .)
+    *               reduce using rule 38 (expresion -> objeto_expresion .)
+    /               reduce using rule 38 (expresion -> objeto_expresion .)
+    <               reduce using rule 38 (expresion -> objeto_expresion .)
+    >               reduce using rule 38 (expresion -> objeto_expresion .)
+    MAYORIG         reduce using rule 38 (expresion -> objeto_expresion .)
+    MENORIG         reduce using rule 38 (expresion -> objeto_expresion .)
+    IGUAL           reduce using rule 38 (expresion -> objeto_expresion .)
+    DISYUNCION      reduce using rule 38 (expresion -> objeto_expresion .)
+    CONJUNCION      reduce using rule 38 (expresion -> objeto_expresion .)
+    )               reduce using rule 38 (expresion -> objeto_expresion .)
+    ;               reduce using rule 38 (expresion -> objeto_expresion .)
+    }               reduce using rule 38 (expresion -> objeto_expresion .)
+
+
+state 53
+
+    (93) objeto_expresion -> { . pares_expresion }
+    (94) pares_expresion -> . par_expresion , pares_expresion
+    (95) pares_expresion -> . par_expresion
+    (96) par_expresion -> . clave_expresion : expresion
+    (97) clave_expresion -> . IDENTIFIER
+    (98) clave_expresion -> . STRING
+
+    IDENTIFIER      shift and go to state 90
+    STRING          shift and go to state 91
+
+    pares_expresion                shift and go to state 87
+    par_expresion                  shift and go to state 88
+    clave_expresion                shift and go to state 89
+
+state 54
+
+    (43) asignacion -> IDENTIFIER = expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ;               reduce using rule 43 (asignacion -> IDENTIFIER = expresion .)
+    +               shift and go to state 74
+    -               shift and go to state 75
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+
+state 55
+
+    (39) propiedad -> IDENTIFIER [ STRING . ]
+    (42) propiedad -> IDENTIFIER [ STRING . ] . IDENTIFIER
+
+    ]               shift and go to state 92
+
+
+state 56
+
+    (41) propiedad -> IDENTIFIER . IDENTIFIER .
+    (39) propiedad -> IDENTIFIER . [ STRING ]
+    (40) propiedad -> IDENTIFIER . . propiedad
+    (41) propiedad -> IDENTIFIER . . IDENTIFIER
+    (42) propiedad -> IDENTIFIER . [ STRING ] . IDENTIFIER
+
+    =               reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    ,               reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    +               reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    -               reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    *               reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    /               reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    <               reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    >               reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    MAYORIG         reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    MENORIG         reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    IGUAL           reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    DISYUNCION      reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    CONJUNCION      reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    )               reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    ;               reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    }               reduce using rule 41 (propiedad -> IDENTIFIER . IDENTIFIER .)
+    [               shift and go to state 24
+    .               shift and go to state 25
+
+
+state 57
+
+    (40) propiedad -> IDENTIFIER . propiedad .
+
+    =               reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    ,               reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    +               reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    -               reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    *               reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    /               reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    <               reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    >               reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    MAYORIG         reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    MENORIG         reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    IGUAL           reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    DISYUNCION      reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    CONJUNCION      reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    )               reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    ;               reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+    }               reduce using rule 40 (propiedad -> IDENTIFIER . propiedad .)
+
+
+state 58
+
+    (44) asignacion -> propiedad = expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ;               reduce using rule 44 (asignacion -> propiedad = expresion .)
+    +               shift and go to state 74
+    -               shift and go to state 75
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+
+state 59
+
+    (48) lista_declaraciones -> contenido_declaracion , . lista_declaraciones
+    (47) lista_declaraciones -> . contenido_declaracion
+    (48) lista_declaraciones -> . contenido_declaracion , lista_declaraciones
+    (49) contenido_declaracion -> . IDENTIFIER
+    (50) contenido_declaracion -> . IDENTIFIER : IDENTIFIER
+    (51) contenido_declaracion -> . IDENTIFIER : IDENTIFIER = expresion
+    (52) contenido_declaracion -> . IDENTIFIER = expresion
+
+    IDENTIFIER      shift and go to state 29
+
+    contenido_declaracion          shift and go to state 28
+    lista_declaraciones            shift and go to state 93
+
+state 60
+
+    (50) contenido_declaracion -> IDENTIFIER : . IDENTIFIER
+    (51) contenido_declaracion -> IDENTIFIER : . IDENTIFIER = expresion
+
+    IDENTIFIER      shift and go to state 94
+
+
+state 61
+
+    (52) contenido_declaracion -> IDENTIFIER = . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 95
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 62
+
+    (46) declaracion -> TYPE IDENTIFIER = . objeto_tipo
+    (99) objeto_tipo -> . { pares_tipo }
+
+    {               shift and go to state 97
+
+    objeto_tipo                    shift and go to state 96
+
+state 63
+
+    (72) funcion -> FUNCTION IDENTIFIER ( . argumentos ) : tipo { contenido_funcion }
+    (85) argumentos -> . argumento
+    (86) argumentos -> . argumento , argumentos
+    (87) argumentos -> . lambda
+    (88) argumento -> . IDENTIFIER : tipo
+    (3) lambda -> .
+
+    IDENTIFIER      shift and go to state 98
+    )               reduce using rule 3 (lambda -> .)
+
+    argumentos                     shift and go to state 99
+    argumento                      shift and go to state 100
+    lambda                         shift and go to state 101
+
+state 64
+
+    (53) condicional -> IF condiciones contenido_if .
+
+    COM_MULTI       reduce using rule 53 (condicional -> IF condiciones contenido_if .)
+    COM_SIMPLE      reduce using rule 53 (condicional -> IF condiciones contenido_if .)
+    IDENTIFIER      reduce using rule 53 (condicional -> IF condiciones contenido_if .)
+    LET             reduce using rule 53 (condicional -> IF condiciones contenido_if .)
+    TYPE            reduce using rule 53 (condicional -> IF condiciones contenido_if .)
+    FUNCTION        reduce using rule 53 (condicional -> IF condiciones contenido_if .)
+    IF              reduce using rule 53 (condicional -> IF condiciones contenido_if .)
+    WHILE           reduce using rule 53 (condicional -> IF condiciones contenido_if .)
+    $end            reduce using rule 53 (condicional -> IF condiciones contenido_if .)
+    }               reduce using rule 53 (condicional -> IF condiciones contenido_if .)
+    RETURN          reduce using rule 53 (condicional -> IF condiciones contenido_if .)
+
+
+state 65
+
+    (54) condicional -> IF condiciones contenido_if_else . contenido_else
+    (61) contenido_else -> . ELSE { lineas_cond }
+
+    ELSE            shift and go to state 103
+
+    contenido_else                 shift and go to state 102
+
+state 66
+
+    (59) contenido_if -> { . lineas_cond }
+    (60) contenido_if_else -> { . lineas_cond }
+    (62) lineas_cond -> . linea_cond
+    (63) lineas_cond -> . linea_cond lineas_cond
+    (64) linea_cond -> . linea_normal_cond ;
+    (65) linea_cond -> . linea_especial_cond
+    (66) linea_normal_cond -> . llamada_funcion
+    (67) linea_normal_cond -> . asignacion
+    (68) linea_normal_cond -> . declaracion
+    (69) linea_especial_cond -> . COM_MULTI
+    (70) linea_especial_cond -> . COM_SIMPLE
+    (71) linea_especial_cond -> . condicional
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (43) asignacion -> . IDENTIFIER = expresion
+    (44) asignacion -> . propiedad = expresion
+    (45) declaracion -> . LET lista_declaraciones
+    (46) declaracion -> . TYPE IDENTIFIER = objeto_tipo
+    (53) condicional -> . IF condiciones contenido_if
+    (54) condicional -> . IF condiciones contenido_if_else contenido_else
+    (55) condicional -> . WHILE condiciones_while contenido_while
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+
+    COM_MULTI       shift and go to state 111
+    COM_SIMPLE      shift and go to state 112
+    IDENTIFIER      shift and go to state 13
+    LET             shift and go to state 15
+    TYPE            shift and go to state 16
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+
+    lineas_cond                    shift and go to state 104
+    linea_cond                     shift and go to state 105
+    linea_normal_cond              shift and go to state 106
+    linea_especial_cond            shift and go to state 107
+    llamada_funcion                shift and go to state 108
+    asignacion                     shift and go to state 109
+    declaracion                    shift and go to state 110
+    condicional                    shift and go to state 113
+    propiedad                      shift and go to state 14
+
+state 67
+
+    (56) condiciones -> ( expresion . )
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    )               shift and go to state 114
+    +               shift and go to state 74
+    -               shift and go to state 75
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+
+state 68
+
+    (55) condicional -> WHILE condiciones_while contenido_while .
+
+    COM_MULTI       reduce using rule 55 (condicional -> WHILE condiciones_while contenido_while .)
+    COM_SIMPLE      reduce using rule 55 (condicional -> WHILE condiciones_while contenido_while .)
+    IDENTIFIER      reduce using rule 55 (condicional -> WHILE condiciones_while contenido_while .)
+    LET             reduce using rule 55 (condicional -> WHILE condiciones_while contenido_while .)
+    TYPE            reduce using rule 55 (condicional -> WHILE condiciones_while contenido_while .)
+    FUNCTION        reduce using rule 55 (condicional -> WHILE condiciones_while contenido_while .)
+    IF              reduce using rule 55 (condicional -> WHILE condiciones_while contenido_while .)
+    WHILE           reduce using rule 55 (condicional -> WHILE condiciones_while contenido_while .)
+    $end            reduce using rule 55 (condicional -> WHILE condiciones_while contenido_while .)
+    }               reduce using rule 55 (condicional -> WHILE condiciones_while contenido_while .)
+    RETURN          reduce using rule 55 (condicional -> WHILE condiciones_while contenido_while .)
+
+
+state 69
+
+    (58) contenido_while -> { . lineas_cond }
+    (62) lineas_cond -> . linea_cond
+    (63) lineas_cond -> . linea_cond lineas_cond
+    (64) linea_cond -> . linea_normal_cond ;
+    (65) linea_cond -> . linea_especial_cond
+    (66) linea_normal_cond -> . llamada_funcion
+    (67) linea_normal_cond -> . asignacion
+    (68) linea_normal_cond -> . declaracion
+    (69) linea_especial_cond -> . COM_MULTI
+    (70) linea_especial_cond -> . COM_SIMPLE
+    (71) linea_especial_cond -> . condicional
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (43) asignacion -> . IDENTIFIER = expresion
+    (44) asignacion -> . propiedad = expresion
+    (45) declaracion -> . LET lista_declaraciones
+    (46) declaracion -> . TYPE IDENTIFIER = objeto_tipo
+    (53) condicional -> . IF condiciones contenido_if
+    (54) condicional -> . IF condiciones contenido_if_else contenido_else
+    (55) condicional -> . WHILE condiciones_while contenido_while
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+
+    COM_MULTI       shift and go to state 111
+    COM_SIMPLE      shift and go to state 112
+    IDENTIFIER      shift and go to state 13
+    LET             shift and go to state 15
+    TYPE            shift and go to state 16
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+
+    lineas_cond                    shift and go to state 115
+    linea_cond                     shift and go to state 105
+    linea_normal_cond              shift and go to state 106
+    linea_especial_cond            shift and go to state 107
+    llamada_funcion                shift and go to state 108
+    asignacion                     shift and go to state 109
+    declaracion                    shift and go to state 110
+    condicional                    shift and go to state 113
+    propiedad                      shift and go to state 14
+
+state 70
+
+    (57) condiciones_while -> ( expresion . )
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    )               shift and go to state 116
+    +               shift and go to state 74
+    -               shift and go to state 75
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+
+state 71
+
+    (28) expresion -> ( expresion . )
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    )               shift and go to state 117
+    +               shift and go to state 74
+    -               shift and go to state 75
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+
+state 72
+
+    (89) llamada_funcion -> IDENTIFIER ( parametros_funcion ) .
+
+    ;               reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    ,               reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    +               reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    -               reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    *               reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    /               reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    <               reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    >               reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    MAYORIG         reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    MENORIG         reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    IGUAL           reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    DISYUNCION      reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    CONJUNCION      reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    )               reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+    }               reduce using rule 89 (llamada_funcion -> IDENTIFIER ( parametros_funcion ) .)
+
+
+state 73
+
+    (91) parametros_funcion -> expresion , . parametros_funcion
+    (90) parametros_funcion -> . expresion
+    (91) parametros_funcion -> . expresion , parametros_funcion
+    (92) parametros_funcion -> . lambda
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (3) lambda -> .
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    )               reduce using rule 3 (lambda -> .)
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 40
+    parametros_funcion             shift and go to state 118
+    lambda                         shift and go to state 41
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 74
+
+    (15) expresion -> expresion + . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 119
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 75
+
+    (16) expresion -> expresion - . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 120
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 76
+
+    (17) expresion -> expresion * . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 121
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 77
+
+    (18) expresion -> expresion / . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 122
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 78
+
+    (19) expresion -> expresion < . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 123
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 79
+
+    (20) expresion -> expresion > . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 124
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 80
+
+    (21) expresion -> expresion MAYORIG . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 125
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 81
+
+    (22) expresion -> expresion MENORIG . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 126
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 82
+
+    (23) expresion -> expresion IGUAL . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 127
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 83
+
+    (24) expresion -> expresion DISYUNCION . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 128
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 84
+
+    (25) expresion -> expresion CONJUNCION . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 129
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 85
+
+    (26) expresion -> - expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 26 (expresion -> - expresion .)
+    +               reduce using rule 26 (expresion -> - expresion .)
+    -               reduce using rule 26 (expresion -> - expresion .)
+    *               reduce using rule 26 (expresion -> - expresion .)
+    /               reduce using rule 26 (expresion -> - expresion .)
+    DISYUNCION      reduce using rule 26 (expresion -> - expresion .)
+    CONJUNCION      reduce using rule 26 (expresion -> - expresion .)
+    )               reduce using rule 26 (expresion -> - expresion .)
+    ;               reduce using rule 26 (expresion -> - expresion .)
+    }               reduce using rule 26 (expresion -> - expresion .)
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+
+  ! <               [ reduce using rule 26 (expresion -> - expresion .) ]
+  ! >               [ reduce using rule 26 (expresion -> - expresion .) ]
+  ! MAYORIG         [ reduce using rule 26 (expresion -> - expresion .) ]
+  ! MENORIG         [ reduce using rule 26 (expresion -> - expresion .) ]
+  ! IGUAL           [ reduce using rule 26 (expresion -> - expresion .) ]
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+  ! *               [ shift and go to state 76 ]
+  ! /               [ shift and go to state 77 ]
+  ! DISYUNCION      [ shift and go to state 83 ]
+  ! CONJUNCION      [ shift and go to state 84 ]
+
+
+state 86
+
+    (27) expresion -> ! expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 27 (expresion -> ! expresion .)
+    +               reduce using rule 27 (expresion -> ! expresion .)
+    -               reduce using rule 27 (expresion -> ! expresion .)
+    *               reduce using rule 27 (expresion -> ! expresion .)
+    /               reduce using rule 27 (expresion -> ! expresion .)
+    DISYUNCION      reduce using rule 27 (expresion -> ! expresion .)
+    CONJUNCION      reduce using rule 27 (expresion -> ! expresion .)
+    )               reduce using rule 27 (expresion -> ! expresion .)
+    ;               reduce using rule 27 (expresion -> ! expresion .)
+    }               reduce using rule 27 (expresion -> ! expresion .)
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+
+  ! <               [ reduce using rule 27 (expresion -> ! expresion .) ]
+  ! >               [ reduce using rule 27 (expresion -> ! expresion .) ]
+  ! MAYORIG         [ reduce using rule 27 (expresion -> ! expresion .) ]
+  ! MENORIG         [ reduce using rule 27 (expresion -> ! expresion .) ]
+  ! IGUAL           [ reduce using rule 27 (expresion -> ! expresion .) ]
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+  ! *               [ shift and go to state 76 ]
+  ! /               [ shift and go to state 77 ]
+  ! DISYUNCION      [ shift and go to state 83 ]
+  ! CONJUNCION      [ shift and go to state 84 ]
+
+
+state 87
+
+    (93) objeto_expresion -> { pares_expresion . }
+
+    }               shift and go to state 130
+
+
+state 88
+
+    (94) pares_expresion -> par_expresion . , pares_expresion
+    (95) pares_expresion -> par_expresion .
+
+    ,               shift and go to state 131
+    }               reduce using rule 95 (pares_expresion -> par_expresion .)
+
+
+state 89
+
+    (96) par_expresion -> clave_expresion . : expresion
+
+    :               shift and go to state 132
+
+
+state 90
+
+    (97) clave_expresion -> IDENTIFIER .
+
+    :               reduce using rule 97 (clave_expresion -> IDENTIFIER .)
+
+
+state 91
+
+    (98) clave_expresion -> STRING .
+
+    :               reduce using rule 98 (clave_expresion -> STRING .)
+
+
+state 92
+
+    (39) propiedad -> IDENTIFIER [ STRING ] .
+    (42) propiedad -> IDENTIFIER [ STRING ] . . IDENTIFIER
+
+    =               reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    ,               reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    +               reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    -               reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    *               reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    /               reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    <               reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    >               reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    MAYORIG         reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    MENORIG         reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    IGUAL           reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    DISYUNCION      reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    CONJUNCION      reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    )               reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    ;               reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    }               reduce using rule 39 (propiedad -> IDENTIFIER [ STRING ] .)
+    .               shift and go to state 133
+
+
+state 93
+
+    (48) lista_declaraciones -> contenido_declaracion , lista_declaraciones .
+
+    ;               reduce using rule 48 (lista_declaraciones -> contenido_declaracion , lista_declaraciones .)
+
+
+state 94
+
+    (50) contenido_declaracion -> IDENTIFIER : IDENTIFIER .
+    (51) contenido_declaracion -> IDENTIFIER : IDENTIFIER . = expresion
+
+    ,               reduce using rule 50 (contenido_declaracion -> IDENTIFIER : IDENTIFIER .)
+    ;               reduce using rule 50 (contenido_declaracion -> IDENTIFIER : IDENTIFIER .)
+    =               shift and go to state 134
+
+
+state 95
+
+    (52) contenido_declaracion -> IDENTIFIER = expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 52 (contenido_declaracion -> IDENTIFIER = expresion .)
+    ;               reduce using rule 52 (contenido_declaracion -> IDENTIFIER = expresion .)
+    +               shift and go to state 74
+    -               shift and go to state 75
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+
+state 96
+
+    (46) declaracion -> TYPE IDENTIFIER = objeto_tipo .
+
+    ;               reduce using rule 46 (declaracion -> TYPE IDENTIFIER = objeto_tipo .)
+
+
+state 97
+
+    (99) objeto_tipo -> { . pares_tipo }
+    (100) pares_tipo -> . par_tipo , pares_tipo
+    (101) pares_tipo -> . par_tipo
+    (102) par_tipo -> . clave_tipo : tipo
+    (103) clave_tipo -> . IDENTIFIER
+    (104) clave_tipo -> . STRING
+
+    IDENTIFIER      shift and go to state 138
+    STRING          shift and go to state 139
+
+    pares_tipo                     shift and go to state 135
+    par_tipo                       shift and go to state 136
+    clave_tipo                     shift and go to state 137
+
+state 98
+
+    (88) argumento -> IDENTIFIER . : tipo
+
+    :               shift and go to state 140
+
+
+state 99
+
+    (72) funcion -> FUNCTION IDENTIFIER ( argumentos . ) : tipo { contenido_funcion }
+
+    )               shift and go to state 141
+
+
+state 100
+
+    (85) argumentos -> argumento .
+    (86) argumentos -> argumento . , argumentos
+
+    )               reduce using rule 85 (argumentos -> argumento .)
+    ,               shift and go to state 142
+
+
+state 101
+
+    (87) argumentos -> lambda .
+
+    )               reduce using rule 87 (argumentos -> lambda .)
+
+
+state 102
+
+    (54) condicional -> IF condiciones contenido_if_else contenido_else .
+
+    COM_MULTI       reduce using rule 54 (condicional -> IF condiciones contenido_if_else contenido_else .)
+    COM_SIMPLE      reduce using rule 54 (condicional -> IF condiciones contenido_if_else contenido_else .)
+    IDENTIFIER      reduce using rule 54 (condicional -> IF condiciones contenido_if_else contenido_else .)
+    LET             reduce using rule 54 (condicional -> IF condiciones contenido_if_else contenido_else .)
+    TYPE            reduce using rule 54 (condicional -> IF condiciones contenido_if_else contenido_else .)
+    FUNCTION        reduce using rule 54 (condicional -> IF condiciones contenido_if_else contenido_else .)
+    IF              reduce using rule 54 (condicional -> IF condiciones contenido_if_else contenido_else .)
+    WHILE           reduce using rule 54 (condicional -> IF condiciones contenido_if_else contenido_else .)
+    $end            reduce using rule 54 (condicional -> IF condiciones contenido_if_else contenido_else .)
+    }               reduce using rule 54 (condicional -> IF condiciones contenido_if_else contenido_else .)
+    RETURN          reduce using rule 54 (condicional -> IF condiciones contenido_if_else contenido_else .)
+
+
+state 103
+
+    (61) contenido_else -> ELSE . { lineas_cond }
+
+    {               shift and go to state 143
+
+
+state 104
+
+    (59) contenido_if -> { lineas_cond . }
+    (60) contenido_if_else -> { lineas_cond . }
+
+    }               shift and go to state 144
+
+
+state 105
+
+    (62) lineas_cond -> linea_cond .
+    (63) lineas_cond -> linea_cond . lineas_cond
+    (62) lineas_cond -> . linea_cond
+    (63) lineas_cond -> . linea_cond lineas_cond
+    (64) linea_cond -> . linea_normal_cond ;
+    (65) linea_cond -> . linea_especial_cond
+    (66) linea_normal_cond -> . llamada_funcion
+    (67) linea_normal_cond -> . asignacion
+    (68) linea_normal_cond -> . declaracion
+    (69) linea_especial_cond -> . COM_MULTI
+    (70) linea_especial_cond -> . COM_SIMPLE
+    (71) linea_especial_cond -> . condicional
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (43) asignacion -> . IDENTIFIER = expresion
+    (44) asignacion -> . propiedad = expresion
+    (45) declaracion -> . LET lista_declaraciones
+    (46) declaracion -> . TYPE IDENTIFIER = objeto_tipo
+    (53) condicional -> . IF condiciones contenido_if
+    (54) condicional -> . IF condiciones contenido_if_else contenido_else
+    (55) condicional -> . WHILE condiciones_while contenido_while
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+
+    }               reduce using rule 62 (lineas_cond -> linea_cond .)
+    COM_MULTI       shift and go to state 111
+    COM_SIMPLE      shift and go to state 112
+    IDENTIFIER      shift and go to state 13
+    LET             shift and go to state 15
+    TYPE            shift and go to state 16
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+
+    linea_cond                     shift and go to state 105
+    lineas_cond                    shift and go to state 145
+    linea_normal_cond              shift and go to state 106
+    linea_especial_cond            shift and go to state 107
+    llamada_funcion                shift and go to state 108
+    asignacion                     shift and go to state 109
+    declaracion                    shift and go to state 110
+    condicional                    shift and go to state 113
+    propiedad                      shift and go to state 14
+
+state 106
+
+    (64) linea_cond -> linea_normal_cond . ;
+
+    ;               shift and go to state 146
+
+
+state 107
+
+    (65) linea_cond -> linea_especial_cond .
+
+    COM_MULTI       reduce using rule 65 (linea_cond -> linea_especial_cond .)
+    COM_SIMPLE      reduce using rule 65 (linea_cond -> linea_especial_cond .)
+    IDENTIFIER      reduce using rule 65 (linea_cond -> linea_especial_cond .)
+    LET             reduce using rule 65 (linea_cond -> linea_especial_cond .)
+    TYPE            reduce using rule 65 (linea_cond -> linea_especial_cond .)
+    IF              reduce using rule 65 (linea_cond -> linea_especial_cond .)
+    WHILE           reduce using rule 65 (linea_cond -> linea_especial_cond .)
+    }               reduce using rule 65 (linea_cond -> linea_especial_cond .)
+
+
+state 108
+
+    (66) linea_normal_cond -> llamada_funcion .
+
+    ;               reduce using rule 66 (linea_normal_cond -> llamada_funcion .)
+
+
+state 109
+
+    (67) linea_normal_cond -> asignacion .
+
+    ;               reduce using rule 67 (linea_normal_cond -> asignacion .)
+
+
+state 110
+
+    (68) linea_normal_cond -> declaracion .
+
+    ;               reduce using rule 68 (linea_normal_cond -> declaracion .)
+
+
+state 111
+
+    (69) linea_especial_cond -> COM_MULTI .
+
+    COM_MULTI       reduce using rule 69 (linea_especial_cond -> COM_MULTI .)
+    COM_SIMPLE      reduce using rule 69 (linea_especial_cond -> COM_MULTI .)
+    IDENTIFIER      reduce using rule 69 (linea_especial_cond -> COM_MULTI .)
+    LET             reduce using rule 69 (linea_especial_cond -> COM_MULTI .)
+    TYPE            reduce using rule 69 (linea_especial_cond -> COM_MULTI .)
+    IF              reduce using rule 69 (linea_especial_cond -> COM_MULTI .)
+    WHILE           reduce using rule 69 (linea_especial_cond -> COM_MULTI .)
+    }               reduce using rule 69 (linea_especial_cond -> COM_MULTI .)
+
+
+state 112
+
+    (70) linea_especial_cond -> COM_SIMPLE .
+
+    COM_MULTI       reduce using rule 70 (linea_especial_cond -> COM_SIMPLE .)
+    COM_SIMPLE      reduce using rule 70 (linea_especial_cond -> COM_SIMPLE .)
+    IDENTIFIER      reduce using rule 70 (linea_especial_cond -> COM_SIMPLE .)
+    LET             reduce using rule 70 (linea_especial_cond -> COM_SIMPLE .)
+    TYPE            reduce using rule 70 (linea_especial_cond -> COM_SIMPLE .)
+    IF              reduce using rule 70 (linea_especial_cond -> COM_SIMPLE .)
+    WHILE           reduce using rule 70 (linea_especial_cond -> COM_SIMPLE .)
+    }               reduce using rule 70 (linea_especial_cond -> COM_SIMPLE .)
+
+
+state 113
+
+    (71) linea_especial_cond -> condicional .
+
+    COM_MULTI       reduce using rule 71 (linea_especial_cond -> condicional .)
+    COM_SIMPLE      reduce using rule 71 (linea_especial_cond -> condicional .)
+    IDENTIFIER      reduce using rule 71 (linea_especial_cond -> condicional .)
+    LET             reduce using rule 71 (linea_especial_cond -> condicional .)
+    TYPE            reduce using rule 71 (linea_especial_cond -> condicional .)
+    IF              reduce using rule 71 (linea_especial_cond -> condicional .)
+    WHILE           reduce using rule 71 (linea_especial_cond -> condicional .)
+    }               reduce using rule 71 (linea_especial_cond -> condicional .)
+
+
+state 114
+
+    (56) condiciones -> ( expresion ) .
+
+    {               reduce using rule 56 (condiciones -> ( expresion ) .)
+
+
+state 115
+
+    (58) contenido_while -> { lineas_cond . }
+
+    }               shift and go to state 147
+
+
+state 116
+
+    (57) condiciones_while -> ( expresion ) .
+
+    {               reduce using rule 57 (condiciones_while -> ( expresion ) .)
+
+
+state 117
+
+    (28) expresion -> ( expresion ) .
+
+    ,               reduce using rule 28 (expresion -> ( expresion ) .)
+    +               reduce using rule 28 (expresion -> ( expresion ) .)
+    -               reduce using rule 28 (expresion -> ( expresion ) .)
+    *               reduce using rule 28 (expresion -> ( expresion ) .)
+    /               reduce using rule 28 (expresion -> ( expresion ) .)
+    <               reduce using rule 28 (expresion -> ( expresion ) .)
+    >               reduce using rule 28 (expresion -> ( expresion ) .)
+    MAYORIG         reduce using rule 28 (expresion -> ( expresion ) .)
+    MENORIG         reduce using rule 28 (expresion -> ( expresion ) .)
+    IGUAL           reduce using rule 28 (expresion -> ( expresion ) .)
+    DISYUNCION      reduce using rule 28 (expresion -> ( expresion ) .)
+    CONJUNCION      reduce using rule 28 (expresion -> ( expresion ) .)
+    )               reduce using rule 28 (expresion -> ( expresion ) .)
+    ;               reduce using rule 28 (expresion -> ( expresion ) .)
+    }               reduce using rule 28 (expresion -> ( expresion ) .)
+
+
+state 118
+
+    (91) parametros_funcion -> expresion , parametros_funcion .
+
+    )               reduce using rule 91 (parametros_funcion -> expresion , parametros_funcion .)
+
+
+state 119
+
+    (15) expresion -> expresion + expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 15 (expresion -> expresion + expresion .)
+    +               reduce using rule 15 (expresion -> expresion + expresion .)
+    -               reduce using rule 15 (expresion -> expresion + expresion .)
+    )               reduce using rule 15 (expresion -> expresion + expresion .)
+    ;               reduce using rule 15 (expresion -> expresion + expresion .)
+    }               reduce using rule 15 (expresion -> expresion + expresion .)
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+  ! *               [ reduce using rule 15 (expresion -> expresion + expresion .) ]
+  ! /               [ reduce using rule 15 (expresion -> expresion + expresion .) ]
+  ! <               [ reduce using rule 15 (expresion -> expresion + expresion .) ]
+  ! >               [ reduce using rule 15 (expresion -> expresion + expresion .) ]
+  ! MAYORIG         [ reduce using rule 15 (expresion -> expresion + expresion .) ]
+  ! MENORIG         [ reduce using rule 15 (expresion -> expresion + expresion .) ]
+  ! IGUAL           [ reduce using rule 15 (expresion -> expresion + expresion .) ]
+  ! DISYUNCION      [ reduce using rule 15 (expresion -> expresion + expresion .) ]
+  ! CONJUNCION      [ reduce using rule 15 (expresion -> expresion + expresion .) ]
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+
+
+state 120
+
+    (16) expresion -> expresion - expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 16 (expresion -> expresion - expresion .)
+    +               reduce using rule 16 (expresion -> expresion - expresion .)
+    -               reduce using rule 16 (expresion -> expresion - expresion .)
+    )               reduce using rule 16 (expresion -> expresion - expresion .)
+    ;               reduce using rule 16 (expresion -> expresion - expresion .)
+    }               reduce using rule 16 (expresion -> expresion - expresion .)
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+  ! *               [ reduce using rule 16 (expresion -> expresion - expresion .) ]
+  ! /               [ reduce using rule 16 (expresion -> expresion - expresion .) ]
+  ! <               [ reduce using rule 16 (expresion -> expresion - expresion .) ]
+  ! >               [ reduce using rule 16 (expresion -> expresion - expresion .) ]
+  ! MAYORIG         [ reduce using rule 16 (expresion -> expresion - expresion .) ]
+  ! MENORIG         [ reduce using rule 16 (expresion -> expresion - expresion .) ]
+  ! IGUAL           [ reduce using rule 16 (expresion -> expresion - expresion .) ]
+  ! DISYUNCION      [ reduce using rule 16 (expresion -> expresion - expresion .) ]
+  ! CONJUNCION      [ reduce using rule 16 (expresion -> expresion - expresion .) ]
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+
+
+state 121
+
+    (17) expresion -> expresion * expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 17 (expresion -> expresion * expresion .)
+    +               reduce using rule 17 (expresion -> expresion * expresion .)
+    -               reduce using rule 17 (expresion -> expresion * expresion .)
+    *               reduce using rule 17 (expresion -> expresion * expresion .)
+    /               reduce using rule 17 (expresion -> expresion * expresion .)
+    )               reduce using rule 17 (expresion -> expresion * expresion .)
+    ;               reduce using rule 17 (expresion -> expresion * expresion .)
+    }               reduce using rule 17 (expresion -> expresion * expresion .)
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+  ! <               [ reduce using rule 17 (expresion -> expresion * expresion .) ]
+  ! >               [ reduce using rule 17 (expresion -> expresion * expresion .) ]
+  ! MAYORIG         [ reduce using rule 17 (expresion -> expresion * expresion .) ]
+  ! MENORIG         [ reduce using rule 17 (expresion -> expresion * expresion .) ]
+  ! IGUAL           [ reduce using rule 17 (expresion -> expresion * expresion .) ]
+  ! DISYUNCION      [ reduce using rule 17 (expresion -> expresion * expresion .) ]
+  ! CONJUNCION      [ reduce using rule 17 (expresion -> expresion * expresion .) ]
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+  ! *               [ shift and go to state 76 ]
+  ! /               [ shift and go to state 77 ]
+
+
+state 122
+
+    (18) expresion -> expresion / expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 18 (expresion -> expresion / expresion .)
+    +               reduce using rule 18 (expresion -> expresion / expresion .)
+    -               reduce using rule 18 (expresion -> expresion / expresion .)
+    *               reduce using rule 18 (expresion -> expresion / expresion .)
+    /               reduce using rule 18 (expresion -> expresion / expresion .)
+    )               reduce using rule 18 (expresion -> expresion / expresion .)
+    ;               reduce using rule 18 (expresion -> expresion / expresion .)
+    }               reduce using rule 18 (expresion -> expresion / expresion .)
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+  ! <               [ reduce using rule 18 (expresion -> expresion / expresion .) ]
+  ! >               [ reduce using rule 18 (expresion -> expresion / expresion .) ]
+  ! MAYORIG         [ reduce using rule 18 (expresion -> expresion / expresion .) ]
+  ! MENORIG         [ reduce using rule 18 (expresion -> expresion / expresion .) ]
+  ! IGUAL           [ reduce using rule 18 (expresion -> expresion / expresion .) ]
+  ! DISYUNCION      [ reduce using rule 18 (expresion -> expresion / expresion .) ]
+  ! CONJUNCION      [ reduce using rule 18 (expresion -> expresion / expresion .) ]
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+  ! *               [ shift and go to state 76 ]
+  ! /               [ shift and go to state 77 ]
+
+
+state 123
+
+    (19) expresion -> expresion < expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 19 (expresion -> expresion < expresion .)
+    +               reduce using rule 19 (expresion -> expresion < expresion .)
+    -               reduce using rule 19 (expresion -> expresion < expresion .)
+    *               reduce using rule 19 (expresion -> expresion < expresion .)
+    /               reduce using rule 19 (expresion -> expresion < expresion .)
+    <               reduce using rule 19 (expresion -> expresion < expresion .)
+    >               reduce using rule 19 (expresion -> expresion < expresion .)
+    MAYORIG         reduce using rule 19 (expresion -> expresion < expresion .)
+    MENORIG         reduce using rule 19 (expresion -> expresion < expresion .)
+    IGUAL           reduce using rule 19 (expresion -> expresion < expresion .)
+    DISYUNCION      reduce using rule 19 (expresion -> expresion < expresion .)
+    CONJUNCION      reduce using rule 19 (expresion -> expresion < expresion .)
+    )               reduce using rule 19 (expresion -> expresion < expresion .)
+    ;               reduce using rule 19 (expresion -> expresion < expresion .)
+    }               reduce using rule 19 (expresion -> expresion < expresion .)
+
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+  ! *               [ shift and go to state 76 ]
+  ! /               [ shift and go to state 77 ]
+  ! <               [ shift and go to state 78 ]
+  ! >               [ shift and go to state 79 ]
+  ! MAYORIG         [ shift and go to state 80 ]
+  ! MENORIG         [ shift and go to state 81 ]
+  ! IGUAL           [ shift and go to state 82 ]
+  ! DISYUNCION      [ shift and go to state 83 ]
+  ! CONJUNCION      [ shift and go to state 84 ]
+
+
+state 124
+
+    (20) expresion -> expresion > expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 20 (expresion -> expresion > expresion .)
+    +               reduce using rule 20 (expresion -> expresion > expresion .)
+    -               reduce using rule 20 (expresion -> expresion > expresion .)
+    *               reduce using rule 20 (expresion -> expresion > expresion .)
+    /               reduce using rule 20 (expresion -> expresion > expresion .)
+    <               reduce using rule 20 (expresion -> expresion > expresion .)
+    >               reduce using rule 20 (expresion -> expresion > expresion .)
+    MAYORIG         reduce using rule 20 (expresion -> expresion > expresion .)
+    MENORIG         reduce using rule 20 (expresion -> expresion > expresion .)
+    IGUAL           reduce using rule 20 (expresion -> expresion > expresion .)
+    DISYUNCION      reduce using rule 20 (expresion -> expresion > expresion .)
+    CONJUNCION      reduce using rule 20 (expresion -> expresion > expresion .)
+    )               reduce using rule 20 (expresion -> expresion > expresion .)
+    ;               reduce using rule 20 (expresion -> expresion > expresion .)
+    }               reduce using rule 20 (expresion -> expresion > expresion .)
+
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+  ! *               [ shift and go to state 76 ]
+  ! /               [ shift and go to state 77 ]
+  ! <               [ shift and go to state 78 ]
+  ! >               [ shift and go to state 79 ]
+  ! MAYORIG         [ shift and go to state 80 ]
+  ! MENORIG         [ shift and go to state 81 ]
+  ! IGUAL           [ shift and go to state 82 ]
+  ! DISYUNCION      [ shift and go to state 83 ]
+  ! CONJUNCION      [ shift and go to state 84 ]
+
+
+state 125
+
+    (21) expresion -> expresion MAYORIG expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    +               reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    -               reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    *               reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    /               reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    <               reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    >               reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    MAYORIG         reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    MENORIG         reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    IGUAL           reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    DISYUNCION      reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    CONJUNCION      reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    )               reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    ;               reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+    }               reduce using rule 21 (expresion -> expresion MAYORIG expresion .)
+
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+  ! *               [ shift and go to state 76 ]
+  ! /               [ shift and go to state 77 ]
+  ! <               [ shift and go to state 78 ]
+  ! >               [ shift and go to state 79 ]
+  ! MAYORIG         [ shift and go to state 80 ]
+  ! MENORIG         [ shift and go to state 81 ]
+  ! IGUAL           [ shift and go to state 82 ]
+  ! DISYUNCION      [ shift and go to state 83 ]
+  ! CONJUNCION      [ shift and go to state 84 ]
+
+
+state 126
+
+    (22) expresion -> expresion MENORIG expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    +               reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    -               reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    *               reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    /               reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    <               reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    >               reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    MAYORIG         reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    MENORIG         reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    IGUAL           reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    DISYUNCION      reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    CONJUNCION      reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    )               reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    ;               reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+    }               reduce using rule 22 (expresion -> expresion MENORIG expresion .)
+
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+  ! *               [ shift and go to state 76 ]
+  ! /               [ shift and go to state 77 ]
+  ! <               [ shift and go to state 78 ]
+  ! >               [ shift and go to state 79 ]
+  ! MAYORIG         [ shift and go to state 80 ]
+  ! MENORIG         [ shift and go to state 81 ]
+  ! IGUAL           [ shift and go to state 82 ]
+  ! DISYUNCION      [ shift and go to state 83 ]
+  ! CONJUNCION      [ shift and go to state 84 ]
+
+
+state 127
+
+    (23) expresion -> expresion IGUAL expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    +               reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    -               reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    *               reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    /               reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    <               reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    >               reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    MAYORIG         reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    MENORIG         reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    IGUAL           reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    DISYUNCION      reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    CONJUNCION      reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    )               reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    ;               reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+    }               reduce using rule 23 (expresion -> expresion IGUAL expresion .)
+
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+  ! *               [ shift and go to state 76 ]
+  ! /               [ shift and go to state 77 ]
+  ! <               [ shift and go to state 78 ]
+  ! >               [ shift and go to state 79 ]
+  ! MAYORIG         [ shift and go to state 80 ]
+  ! MENORIG         [ shift and go to state 81 ]
+  ! IGUAL           [ shift and go to state 82 ]
+  ! DISYUNCION      [ shift and go to state 83 ]
+  ! CONJUNCION      [ shift and go to state 84 ]
+
+
+state 128
+
+    (24) expresion -> expresion DISYUNCION expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 24 (expresion -> expresion DISYUNCION expresion .)
+    +               reduce using rule 24 (expresion -> expresion DISYUNCION expresion .)
+    -               reduce using rule 24 (expresion -> expresion DISYUNCION expresion .)
+    *               reduce using rule 24 (expresion -> expresion DISYUNCION expresion .)
+    /               reduce using rule 24 (expresion -> expresion DISYUNCION expresion .)
+    DISYUNCION      reduce using rule 24 (expresion -> expresion DISYUNCION expresion .)
+    CONJUNCION      reduce using rule 24 (expresion -> expresion DISYUNCION expresion .)
+    )               reduce using rule 24 (expresion -> expresion DISYUNCION expresion .)
+    ;               reduce using rule 24 (expresion -> expresion DISYUNCION expresion .)
+    }               reduce using rule 24 (expresion -> expresion DISYUNCION expresion .)
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+
+  ! <               [ reduce using rule 24 (expresion -> expresion DISYUNCION expresion .) ]
+  ! >               [ reduce using rule 24 (expresion -> expresion DISYUNCION expresion .) ]
+  ! MAYORIG         [ reduce using rule 24 (expresion -> expresion DISYUNCION expresion .) ]
+  ! MENORIG         [ reduce using rule 24 (expresion -> expresion DISYUNCION expresion .) ]
+  ! IGUAL           [ reduce using rule 24 (expresion -> expresion DISYUNCION expresion .) ]
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+  ! *               [ shift and go to state 76 ]
+  ! /               [ shift and go to state 77 ]
+  ! DISYUNCION      [ shift and go to state 83 ]
+  ! CONJUNCION      [ shift and go to state 84 ]
+
+
+state 129
+
+    (25) expresion -> expresion CONJUNCION expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 25 (expresion -> expresion CONJUNCION expresion .)
+    +               reduce using rule 25 (expresion -> expresion CONJUNCION expresion .)
+    -               reduce using rule 25 (expresion -> expresion CONJUNCION expresion .)
+    *               reduce using rule 25 (expresion -> expresion CONJUNCION expresion .)
+    /               reduce using rule 25 (expresion -> expresion CONJUNCION expresion .)
+    DISYUNCION      reduce using rule 25 (expresion -> expresion CONJUNCION expresion .)
+    CONJUNCION      reduce using rule 25 (expresion -> expresion CONJUNCION expresion .)
+    )               reduce using rule 25 (expresion -> expresion CONJUNCION expresion .)
+    ;               reduce using rule 25 (expresion -> expresion CONJUNCION expresion .)
+    }               reduce using rule 25 (expresion -> expresion CONJUNCION expresion .)
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+
+  ! <               [ reduce using rule 25 (expresion -> expresion CONJUNCION expresion .) ]
+  ! >               [ reduce using rule 25 (expresion -> expresion CONJUNCION expresion .) ]
+  ! MAYORIG         [ reduce using rule 25 (expresion -> expresion CONJUNCION expresion .) ]
+  ! MENORIG         [ reduce using rule 25 (expresion -> expresion CONJUNCION expresion .) ]
+  ! IGUAL           [ reduce using rule 25 (expresion -> expresion CONJUNCION expresion .) ]
+  ! +               [ shift and go to state 74 ]
+  ! -               [ shift and go to state 75 ]
+  ! *               [ shift and go to state 76 ]
+  ! /               [ shift and go to state 77 ]
+  ! DISYUNCION      [ shift and go to state 83 ]
+  ! CONJUNCION      [ shift and go to state 84 ]
+
+
+state 130
+
+    (93) objeto_expresion -> { pares_expresion } .
+
+    ,               reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    +               reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    -               reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    *               reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    /               reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    <               reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    >               reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    MAYORIG         reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    MENORIG         reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    IGUAL           reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    DISYUNCION      reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    CONJUNCION      reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    )               reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    ;               reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+    }               reduce using rule 93 (objeto_expresion -> { pares_expresion } .)
+
+
+state 131
+
+    (94) pares_expresion -> par_expresion , . pares_expresion
+    (94) pares_expresion -> . par_expresion , pares_expresion
+    (95) pares_expresion -> . par_expresion
+    (96) par_expresion -> . clave_expresion : expresion
+    (97) clave_expresion -> . IDENTIFIER
+    (98) clave_expresion -> . STRING
+
+    IDENTIFIER      shift and go to state 90
+    STRING          shift and go to state 91
+
+    par_expresion                  shift and go to state 88
+    pares_expresion                shift and go to state 148
+    clave_expresion                shift and go to state 89
+
+state 132
+
+    (96) par_expresion -> clave_expresion : . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 149
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 133
+
+    (42) propiedad -> IDENTIFIER [ STRING ] . . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 150
+
+
+state 134
+
+    (51) contenido_declaracion -> IDENTIFIER : IDENTIFIER = . expresion
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 151
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 135
+
+    (99) objeto_tipo -> { pares_tipo . }
+
+    }               shift and go to state 152
+
+
+state 136
+
+    (100) pares_tipo -> par_tipo . , pares_tipo
+    (101) pares_tipo -> par_tipo .
+
+    ,               shift and go to state 153
+    }               reduce using rule 101 (pares_tipo -> par_tipo .)
+
+
+state 137
+
+    (102) par_tipo -> clave_tipo . : tipo
+
+    :               shift and go to state 154
+
+
+state 138
+
+    (103) clave_tipo -> IDENTIFIER .
+
+    :               reduce using rule 103 (clave_tipo -> IDENTIFIER .)
+
+
+state 139
+
+    (104) clave_tipo -> STRING .
+
+    :               reduce using rule 104 (clave_tipo -> STRING .)
+
+
+state 140
+
+    (88) argumento -> IDENTIFIER : . tipo
+    (105) tipo -> . INT
+    (106) tipo -> . FLOAT
+    (107) tipo -> . BOOLEAN
+    (108) tipo -> . CHARACTER
+    (109) tipo -> . IDENTIFIER
+    (110) tipo -> . objeto_tipo
+    (99) objeto_tipo -> . { pares_tipo }
+
+    INT             shift and go to state 157
+    FLOAT           shift and go to state 158
+    BOOLEAN         shift and go to state 159
+    CHARACTER       shift and go to state 160
+    IDENTIFIER      shift and go to state 155
+    {               shift and go to state 97
+
+    tipo                           shift and go to state 156
+    objeto_tipo                    shift and go to state 161
+
+state 141
+
+    (72) funcion -> FUNCTION IDENTIFIER ( argumentos ) . : tipo { contenido_funcion }
+
+    :               shift and go to state 162
+
+
+state 142
+
+    (86) argumentos -> argumento , . argumentos
+    (85) argumentos -> . argumento
+    (86) argumentos -> . argumento , argumentos
+    (87) argumentos -> . lambda
+    (88) argumento -> . IDENTIFIER : tipo
+    (3) lambda -> .
+
+    IDENTIFIER      shift and go to state 98
+    )               reduce using rule 3 (lambda -> .)
+
+    argumento                      shift and go to state 100
+    argumentos                     shift and go to state 163
+    lambda                         shift and go to state 101
+
+state 143
+
+    (61) contenido_else -> ELSE { . lineas_cond }
+    (62) lineas_cond -> . linea_cond
+    (63) lineas_cond -> . linea_cond lineas_cond
+    (64) linea_cond -> . linea_normal_cond ;
+    (65) linea_cond -> . linea_especial_cond
+    (66) linea_normal_cond -> . llamada_funcion
+    (67) linea_normal_cond -> . asignacion
+    (68) linea_normal_cond -> . declaracion
+    (69) linea_especial_cond -> . COM_MULTI
+    (70) linea_especial_cond -> . COM_SIMPLE
+    (71) linea_especial_cond -> . condicional
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (43) asignacion -> . IDENTIFIER = expresion
+    (44) asignacion -> . propiedad = expresion
+    (45) declaracion -> . LET lista_declaraciones
+    (46) declaracion -> . TYPE IDENTIFIER = objeto_tipo
+    (53) condicional -> . IF condiciones contenido_if
+    (54) condicional -> . IF condiciones contenido_if_else contenido_else
+    (55) condicional -> . WHILE condiciones_while contenido_while
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+
+    COM_MULTI       shift and go to state 111
+    COM_SIMPLE      shift and go to state 112
+    IDENTIFIER      shift and go to state 13
+    LET             shift and go to state 15
+    TYPE            shift and go to state 16
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+
+    lineas_cond                    shift and go to state 164
+    linea_cond                     shift and go to state 105
+    linea_normal_cond              shift and go to state 106
+    linea_especial_cond            shift and go to state 107
+    llamada_funcion                shift and go to state 108
+    asignacion                     shift and go to state 109
+    declaracion                    shift and go to state 110
+    condicional                    shift and go to state 113
+    propiedad                      shift and go to state 14
+
+state 144
+
+    (59) contenido_if -> { lineas_cond } .
+    (60) contenido_if_else -> { lineas_cond } .
+
+    COM_MULTI       reduce using rule 59 (contenido_if -> { lineas_cond } .)
+    COM_SIMPLE      reduce using rule 59 (contenido_if -> { lineas_cond } .)
+    IDENTIFIER      reduce using rule 59 (contenido_if -> { lineas_cond } .)
+    LET             reduce using rule 59 (contenido_if -> { lineas_cond } .)
+    TYPE            reduce using rule 59 (contenido_if -> { lineas_cond } .)
+    FUNCTION        reduce using rule 59 (contenido_if -> { lineas_cond } .)
+    IF              reduce using rule 59 (contenido_if -> { lineas_cond } .)
+    WHILE           reduce using rule 59 (contenido_if -> { lineas_cond } .)
+    $end            reduce using rule 59 (contenido_if -> { lineas_cond } .)
+    }               reduce using rule 59 (contenido_if -> { lineas_cond } .)
+    RETURN          reduce using rule 59 (contenido_if -> { lineas_cond } .)
+    ELSE            reduce using rule 60 (contenido_if_else -> { lineas_cond } .)
+
+
+state 145
+
+    (63) lineas_cond -> linea_cond lineas_cond .
+
+    }               reduce using rule 63 (lineas_cond -> linea_cond lineas_cond .)
+
+
+state 146
+
+    (64) linea_cond -> linea_normal_cond ; .
+
+    COM_MULTI       reduce using rule 64 (linea_cond -> linea_normal_cond ; .)
+    COM_SIMPLE      reduce using rule 64 (linea_cond -> linea_normal_cond ; .)
+    IDENTIFIER      reduce using rule 64 (linea_cond -> linea_normal_cond ; .)
+    LET             reduce using rule 64 (linea_cond -> linea_normal_cond ; .)
+    TYPE            reduce using rule 64 (linea_cond -> linea_normal_cond ; .)
+    IF              reduce using rule 64 (linea_cond -> linea_normal_cond ; .)
+    WHILE           reduce using rule 64 (linea_cond -> linea_normal_cond ; .)
+    }               reduce using rule 64 (linea_cond -> linea_normal_cond ; .)
+
+
+state 147
+
+    (58) contenido_while -> { lineas_cond } .
+
+    COM_MULTI       reduce using rule 58 (contenido_while -> { lineas_cond } .)
+    COM_SIMPLE      reduce using rule 58 (contenido_while -> { lineas_cond } .)
+    IDENTIFIER      reduce using rule 58 (contenido_while -> { lineas_cond } .)
+    LET             reduce using rule 58 (contenido_while -> { lineas_cond } .)
+    TYPE            reduce using rule 58 (contenido_while -> { lineas_cond } .)
+    FUNCTION        reduce using rule 58 (contenido_while -> { lineas_cond } .)
+    IF              reduce using rule 58 (contenido_while -> { lineas_cond } .)
+    WHILE           reduce using rule 58 (contenido_while -> { lineas_cond } .)
+    $end            reduce using rule 58 (contenido_while -> { lineas_cond } .)
+    }               reduce using rule 58 (contenido_while -> { lineas_cond } .)
+    RETURN          reduce using rule 58 (contenido_while -> { lineas_cond } .)
+
+
+state 148
+
+    (94) pares_expresion -> par_expresion , pares_expresion .
+
+    }               reduce using rule 94 (pares_expresion -> par_expresion , pares_expresion .)
+
+
+state 149
+
+    (96) par_expresion -> clave_expresion : expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 96 (par_expresion -> clave_expresion : expresion .)
+    }               reduce using rule 96 (par_expresion -> clave_expresion : expresion .)
+    +               shift and go to state 74
+    -               shift and go to state 75
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+
+state 150
+
+    (42) propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .
+
+    =               reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    ,               reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    +               reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    -               reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    *               reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    /               reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    <               reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    >               reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    MAYORIG         reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    MENORIG         reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    IGUAL           reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    DISYUNCION      reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    CONJUNCION      reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    )               reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    ;               reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+    }               reduce using rule 42 (propiedad -> IDENTIFIER [ STRING ] . IDENTIFIER .)
+
+
+state 151
+
+    (51) contenido_declaracion -> IDENTIFIER : IDENTIFIER = expresion .
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ,               reduce using rule 51 (contenido_declaracion -> IDENTIFIER : IDENTIFIER = expresion .)
+    ;               reduce using rule 51 (contenido_declaracion -> IDENTIFIER : IDENTIFIER = expresion .)
+    +               shift and go to state 74
+    -               shift and go to state 75
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+
+state 152
+
+    (99) objeto_tipo -> { pares_tipo } .
+
+    ;               reduce using rule 99 (objeto_tipo -> { pares_tipo } .)
+    ,               reduce using rule 99 (objeto_tipo -> { pares_tipo } .)
+    )               reduce using rule 99 (objeto_tipo -> { pares_tipo } .)
+    }               reduce using rule 99 (objeto_tipo -> { pares_tipo } .)
+    {               reduce using rule 99 (objeto_tipo -> { pares_tipo } .)
+
+
+state 153
+
+    (100) pares_tipo -> par_tipo , . pares_tipo
+    (100) pares_tipo -> . par_tipo , pares_tipo
+    (101) pares_tipo -> . par_tipo
+    (102) par_tipo -> . clave_tipo : tipo
+    (103) clave_tipo -> . IDENTIFIER
+    (104) clave_tipo -> . STRING
+
+    IDENTIFIER      shift and go to state 138
+    STRING          shift and go to state 139
+
+    par_tipo                       shift and go to state 136
+    pares_tipo                     shift and go to state 165
+    clave_tipo                     shift and go to state 137
+
+state 154
+
+    (102) par_tipo -> clave_tipo : . tipo
+    (105) tipo -> . INT
+    (106) tipo -> . FLOAT
+    (107) tipo -> . BOOLEAN
+    (108) tipo -> . CHARACTER
+    (109) tipo -> . IDENTIFIER
+    (110) tipo -> . objeto_tipo
+    (99) objeto_tipo -> . { pares_tipo }
+
+    INT             shift and go to state 157
+    FLOAT           shift and go to state 158
+    BOOLEAN         shift and go to state 159
+    CHARACTER       shift and go to state 160
+    IDENTIFIER      shift and go to state 155
+    {               shift and go to state 97
+
+    tipo                           shift and go to state 166
+    objeto_tipo                    shift and go to state 161
+
+state 155
+
+    (109) tipo -> IDENTIFIER .
+
+    ,               reduce using rule 109 (tipo -> IDENTIFIER .)
+    )               reduce using rule 109 (tipo -> IDENTIFIER .)
+    }               reduce using rule 109 (tipo -> IDENTIFIER .)
+    {               reduce using rule 109 (tipo -> IDENTIFIER .)
+
+
+state 156
+
+    (88) argumento -> IDENTIFIER : tipo .
+
+    ,               reduce using rule 88 (argumento -> IDENTIFIER : tipo .)
+    )               reduce using rule 88 (argumento -> IDENTIFIER : tipo .)
+
+
+state 157
+
+    (105) tipo -> INT .
+
+    ,               reduce using rule 105 (tipo -> INT .)
+    )               reduce using rule 105 (tipo -> INT .)
+    }               reduce using rule 105 (tipo -> INT .)
+    {               reduce using rule 105 (tipo -> INT .)
+
+
+state 158
+
+    (106) tipo -> FLOAT .
+
+    ,               reduce using rule 106 (tipo -> FLOAT .)
+    )               reduce using rule 106 (tipo -> FLOAT .)
+    }               reduce using rule 106 (tipo -> FLOAT .)
+    {               reduce using rule 106 (tipo -> FLOAT .)
+
+
+state 159
+
+    (107) tipo -> BOOLEAN .
+
+    ,               reduce using rule 107 (tipo -> BOOLEAN .)
+    )               reduce using rule 107 (tipo -> BOOLEAN .)
+    }               reduce using rule 107 (tipo -> BOOLEAN .)
+    {               reduce using rule 107 (tipo -> BOOLEAN .)
+
+
+state 160
+
+    (108) tipo -> CHARACTER .
+
+    ,               reduce using rule 108 (tipo -> CHARACTER .)
+    )               reduce using rule 108 (tipo -> CHARACTER .)
+    }               reduce using rule 108 (tipo -> CHARACTER .)
+    {               reduce using rule 108 (tipo -> CHARACTER .)
+
+
+state 161
+
+    (110) tipo -> objeto_tipo .
+
+    ,               reduce using rule 110 (tipo -> objeto_tipo .)
+    )               reduce using rule 110 (tipo -> objeto_tipo .)
+    }               reduce using rule 110 (tipo -> objeto_tipo .)
+    {               reduce using rule 110 (tipo -> objeto_tipo .)
+
+
+state 162
+
+    (72) funcion -> FUNCTION IDENTIFIER ( argumentos ) : . tipo { contenido_funcion }
+    (105) tipo -> . INT
+    (106) tipo -> . FLOAT
+    (107) tipo -> . BOOLEAN
+    (108) tipo -> . CHARACTER
+    (109) tipo -> . IDENTIFIER
+    (110) tipo -> . objeto_tipo
+    (99) objeto_tipo -> . { pares_tipo }
+
+    INT             shift and go to state 157
+    FLOAT           shift and go to state 158
+    BOOLEAN         shift and go to state 159
+    CHARACTER       shift and go to state 160
+    IDENTIFIER      shift and go to state 155
+    {               shift and go to state 97
+
+    tipo                           shift and go to state 167
+    objeto_tipo                    shift and go to state 161
+
+state 163
+
+    (86) argumentos -> argumento , argumentos .
+
+    )               reduce using rule 86 (argumentos -> argumento , argumentos .)
+
+
+state 164
+
+    (61) contenido_else -> ELSE { lineas_cond . }
+
+    }               shift and go to state 168
+
+
+state 165
+
+    (100) pares_tipo -> par_tipo , pares_tipo .
+
+    }               reduce using rule 100 (pares_tipo -> par_tipo , pares_tipo .)
+
+
+state 166
+
+    (102) par_tipo -> clave_tipo : tipo .
+
+    ,               reduce using rule 102 (par_tipo -> clave_tipo : tipo .)
+    }               reduce using rule 102 (par_tipo -> clave_tipo : tipo .)
+
+
+state 167
+
+    (72) funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo . { contenido_funcion }
+
+    {               shift and go to state 169
+
+
+state 168
+
+    (61) contenido_else -> ELSE { lineas_cond } .
+
+    COM_MULTI       reduce using rule 61 (contenido_else -> ELSE { lineas_cond } .)
+    COM_SIMPLE      reduce using rule 61 (contenido_else -> ELSE { lineas_cond } .)
+    IDENTIFIER      reduce using rule 61 (contenido_else -> ELSE { lineas_cond } .)
+    LET             reduce using rule 61 (contenido_else -> ELSE { lineas_cond } .)
+    TYPE            reduce using rule 61 (contenido_else -> ELSE { lineas_cond } .)
+    FUNCTION        reduce using rule 61 (contenido_else -> ELSE { lineas_cond } .)
+    IF              reduce using rule 61 (contenido_else -> ELSE { lineas_cond } .)
+    WHILE           reduce using rule 61 (contenido_else -> ELSE { lineas_cond } .)
+    $end            reduce using rule 61 (contenido_else -> ELSE { lineas_cond } .)
+    }               reduce using rule 61 (contenido_else -> ELSE { lineas_cond } .)
+    RETURN          reduce using rule 61 (contenido_else -> ELSE { lineas_cond } .)
+
+
+state 169
+
+    (72) funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { . contenido_funcion }
+    (73) contenido_funcion -> . lineas_fun RETURN expresion ;
+    (74) contenido_funcion -> . RETURN expresion ;
+    (75) lineas_fun -> . linea_normal_fun ;
+    (76) lineas_fun -> . linea_especial_fun
+    (77) lineas_fun -> . linea_normal_fun ; lineas_fun
+    (78) lineas_fun -> . linea_especial_fun lineas_fun
+    (79) linea_normal_fun -> . llamada_funcion
+    (80) linea_normal_fun -> . asignacion
+    (81) linea_normal_fun -> . declaracion
+    (82) linea_especial_fun -> . COM_MULTI
+    (83) linea_especial_fun -> . COM_SIMPLE
+    (84) linea_especial_fun -> . condicional
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (43) asignacion -> . IDENTIFIER = expresion
+    (44) asignacion -> . propiedad = expresion
+    (45) declaracion -> . LET lista_declaraciones
+    (46) declaracion -> . TYPE IDENTIFIER = objeto_tipo
+    (53) condicional -> . IF condiciones contenido_if
+    (54) condicional -> . IF condiciones contenido_if_else contenido_else
+    (55) condicional -> . WHILE condiciones_while contenido_while
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+
+    RETURN          shift and go to state 172
+    COM_MULTI       shift and go to state 178
+    COM_SIMPLE      shift and go to state 179
+    IDENTIFIER      shift and go to state 13
+    LET             shift and go to state 15
+    TYPE            shift and go to state 16
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+
+    contenido_funcion              shift and go to state 170
+    lineas_fun                     shift and go to state 171
+    linea_normal_fun               shift and go to state 173
+    linea_especial_fun             shift and go to state 174
+    llamada_funcion                shift and go to state 175
+    asignacion                     shift and go to state 176
+    declaracion                    shift and go to state 177
+    condicional                    shift and go to state 180
+    propiedad                      shift and go to state 14
+
+state 170
+
+    (72) funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion . }
+
+    }               shift and go to state 181
+
+
+state 171
+
+    (73) contenido_funcion -> lineas_fun . RETURN expresion ;
+
+    RETURN          shift and go to state 182
+
+
+state 172
+
+    (74) contenido_funcion -> RETURN . expresion ;
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 183
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 173
+
+    (75) lineas_fun -> linea_normal_fun . ;
+    (77) lineas_fun -> linea_normal_fun . ; lineas_fun
+
+    ;               shift and go to state 184
+
+
+state 174
+
+    (76) lineas_fun -> linea_especial_fun .
+    (78) lineas_fun -> linea_especial_fun . lineas_fun
+    (75) lineas_fun -> . linea_normal_fun ;
+    (76) lineas_fun -> . linea_especial_fun
+    (77) lineas_fun -> . linea_normal_fun ; lineas_fun
+    (78) lineas_fun -> . linea_especial_fun lineas_fun
+    (79) linea_normal_fun -> . llamada_funcion
+    (80) linea_normal_fun -> . asignacion
+    (81) linea_normal_fun -> . declaracion
+    (82) linea_especial_fun -> . COM_MULTI
+    (83) linea_especial_fun -> . COM_SIMPLE
+    (84) linea_especial_fun -> . condicional
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (43) asignacion -> . IDENTIFIER = expresion
+    (44) asignacion -> . propiedad = expresion
+    (45) declaracion -> . LET lista_declaraciones
+    (46) declaracion -> . TYPE IDENTIFIER = objeto_tipo
+    (53) condicional -> . IF condiciones contenido_if
+    (54) condicional -> . IF condiciones contenido_if_else contenido_else
+    (55) condicional -> . WHILE condiciones_while contenido_while
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+
+    RETURN          reduce using rule 76 (lineas_fun -> linea_especial_fun .)
+    COM_MULTI       shift and go to state 178
+    COM_SIMPLE      shift and go to state 179
+    IDENTIFIER      shift and go to state 13
+    LET             shift and go to state 15
+    TYPE            shift and go to state 16
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+
+    linea_especial_fun             shift and go to state 174
+    lineas_fun                     shift and go to state 185
+    linea_normal_fun               shift and go to state 173
+    llamada_funcion                shift and go to state 175
+    asignacion                     shift and go to state 176
+    declaracion                    shift and go to state 177
+    condicional                    shift and go to state 180
+    propiedad                      shift and go to state 14
+
+state 175
+
+    (79) linea_normal_fun -> llamada_funcion .
+
+    ;               reduce using rule 79 (linea_normal_fun -> llamada_funcion .)
+
+
+state 176
+
+    (80) linea_normal_fun -> asignacion .
+
+    ;               reduce using rule 80 (linea_normal_fun -> asignacion .)
+
+
+state 177
+
+    (81) linea_normal_fun -> declaracion .
+
+    ;               reduce using rule 81 (linea_normal_fun -> declaracion .)
+
+
+state 178
+
+    (82) linea_especial_fun -> COM_MULTI .
+
+    COM_MULTI       reduce using rule 82 (linea_especial_fun -> COM_MULTI .)
+    COM_SIMPLE      reduce using rule 82 (linea_especial_fun -> COM_MULTI .)
+    IDENTIFIER      reduce using rule 82 (linea_especial_fun -> COM_MULTI .)
+    LET             reduce using rule 82 (linea_especial_fun -> COM_MULTI .)
+    TYPE            reduce using rule 82 (linea_especial_fun -> COM_MULTI .)
+    IF              reduce using rule 82 (linea_especial_fun -> COM_MULTI .)
+    WHILE           reduce using rule 82 (linea_especial_fun -> COM_MULTI .)
+    RETURN          reduce using rule 82 (linea_especial_fun -> COM_MULTI .)
+
+
+state 179
+
+    (83) linea_especial_fun -> COM_SIMPLE .
+
+    COM_MULTI       reduce using rule 83 (linea_especial_fun -> COM_SIMPLE .)
+    COM_SIMPLE      reduce using rule 83 (linea_especial_fun -> COM_SIMPLE .)
+    IDENTIFIER      reduce using rule 83 (linea_especial_fun -> COM_SIMPLE .)
+    LET             reduce using rule 83 (linea_especial_fun -> COM_SIMPLE .)
+    TYPE            reduce using rule 83 (linea_especial_fun -> COM_SIMPLE .)
+    IF              reduce using rule 83 (linea_especial_fun -> COM_SIMPLE .)
+    WHILE           reduce using rule 83 (linea_especial_fun -> COM_SIMPLE .)
+    RETURN          reduce using rule 83 (linea_especial_fun -> COM_SIMPLE .)
+
+
+state 180
+
+    (84) linea_especial_fun -> condicional .
+
+    COM_MULTI       reduce using rule 84 (linea_especial_fun -> condicional .)
+    COM_SIMPLE      reduce using rule 84 (linea_especial_fun -> condicional .)
+    IDENTIFIER      reduce using rule 84 (linea_especial_fun -> condicional .)
+    LET             reduce using rule 84 (linea_especial_fun -> condicional .)
+    TYPE            reduce using rule 84 (linea_especial_fun -> condicional .)
+    IF              reduce using rule 84 (linea_especial_fun -> condicional .)
+    WHILE           reduce using rule 84 (linea_especial_fun -> condicional .)
+    RETURN          reduce using rule 84 (linea_especial_fun -> condicional .)
+
+
+state 181
+
+    (72) funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion } .
+
+    COM_MULTI       reduce using rule 72 (funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion } .)
+    COM_SIMPLE      reduce using rule 72 (funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion } .)
+    IDENTIFIER      reduce using rule 72 (funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion } .)
+    LET             reduce using rule 72 (funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion } .)
+    TYPE            reduce using rule 72 (funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion } .)
+    FUNCTION        reduce using rule 72 (funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion } .)
+    IF              reduce using rule 72 (funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion } .)
+    WHILE           reduce using rule 72 (funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion } .)
+    $end            reduce using rule 72 (funcion -> FUNCTION IDENTIFIER ( argumentos ) : tipo { contenido_funcion } .)
+
+
+state 182
+
+    (73) contenido_funcion -> lineas_fun RETURN . expresion ;
+    (15) expresion -> . expresion + expresion
+    (16) expresion -> . expresion - expresion
+    (17) expresion -> . expresion * expresion
+    (18) expresion -> . expresion / expresion
+    (19) expresion -> . expresion < expresion
+    (20) expresion -> . expresion > expresion
+    (21) expresion -> . expresion MAYORIG expresion
+    (22) expresion -> . expresion MENORIG expresion
+    (23) expresion -> . expresion IGUAL expresion
+    (24) expresion -> . expresion DISYUNCION expresion
+    (25) expresion -> . expresion CONJUNCION expresion
+    (26) expresion -> . - expresion
+    (27) expresion -> . ! expresion
+    (28) expresion -> . ( expresion )
+    (29) expresion -> . ENTERO
+    (30) expresion -> . REAL
+    (31) expresion -> . TR
+    (32) expresion -> . FL
+    (33) expresion -> . NULL
+    (34) expresion -> . CARACTER
+    (35) expresion -> . IDENTIFIER
+    (36) expresion -> . propiedad
+    (37) expresion -> . llamada_funcion
+    (38) expresion -> . objeto_expresion
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (93) objeto_expresion -> . { pares_expresion }
+
+    -               shift and go to state 42
+    !               shift and go to state 43
+    (               shift and go to state 38
+    ENTERO          shift and go to state 44
+    REAL            shift and go to state 45
+    TR              shift and go to state 46
+    FL              shift and go to state 47
+    NULL            shift and go to state 48
+    CARACTER        shift and go to state 49
+    IDENTIFIER      shift and go to state 37
+    {               shift and go to state 53
+
+    expresion                      shift and go to state 186
+    propiedad                      shift and go to state 50
+    llamada_funcion                shift and go to state 51
+    objeto_expresion               shift and go to state 52
+
+state 183
+
+    (74) contenido_funcion -> RETURN expresion . ;
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ;               shift and go to state 187
+    +               shift and go to state 74
+    -               shift and go to state 75
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+
+state 184
+
+    (75) lineas_fun -> linea_normal_fun ; .
+    (77) lineas_fun -> linea_normal_fun ; . lineas_fun
+    (75) lineas_fun -> . linea_normal_fun ;
+    (76) lineas_fun -> . linea_especial_fun
+    (77) lineas_fun -> . linea_normal_fun ; lineas_fun
+    (78) lineas_fun -> . linea_especial_fun lineas_fun
+    (79) linea_normal_fun -> . llamada_funcion
+    (80) linea_normal_fun -> . asignacion
+    (81) linea_normal_fun -> . declaracion
+    (82) linea_especial_fun -> . COM_MULTI
+    (83) linea_especial_fun -> . COM_SIMPLE
+    (84) linea_especial_fun -> . condicional
+    (89) llamada_funcion -> . IDENTIFIER ( parametros_funcion )
+    (43) asignacion -> . IDENTIFIER = expresion
+    (44) asignacion -> . propiedad = expresion
+    (45) declaracion -> . LET lista_declaraciones
+    (46) declaracion -> . TYPE IDENTIFIER = objeto_tipo
+    (53) condicional -> . IF condiciones contenido_if
+    (54) condicional -> . IF condiciones contenido_if_else contenido_else
+    (55) condicional -> . WHILE condiciones_while contenido_while
+    (39) propiedad -> . IDENTIFIER [ STRING ]
+    (40) propiedad -> . IDENTIFIER . propiedad
+    (41) propiedad -> . IDENTIFIER . IDENTIFIER
+    (42) propiedad -> . IDENTIFIER [ STRING ] . IDENTIFIER
+
+    RETURN          reduce using rule 75 (lineas_fun -> linea_normal_fun ; .)
+    COM_MULTI       shift and go to state 178
+    COM_SIMPLE      shift and go to state 179
+    IDENTIFIER      shift and go to state 13
+    LET             shift and go to state 15
+    TYPE            shift and go to state 16
+    IF              shift and go to state 18
+    WHILE           shift and go to state 19
+
+    linea_normal_fun               shift and go to state 173
+    lineas_fun                     shift and go to state 188
+    linea_especial_fun             shift and go to state 174
+    llamada_funcion                shift and go to state 175
+    asignacion                     shift and go to state 176
+    declaracion                    shift and go to state 177
+    condicional                    shift and go to state 180
+    propiedad                      shift and go to state 14
+
+state 185
+
+    (78) lineas_fun -> linea_especial_fun lineas_fun .
+
+    RETURN          reduce using rule 78 (lineas_fun -> linea_especial_fun lineas_fun .)
+
+
+state 186
+
+    (73) contenido_funcion -> lineas_fun RETURN expresion . ;
+    (15) expresion -> expresion . + expresion
+    (16) expresion -> expresion . - expresion
+    (17) expresion -> expresion . * expresion
+    (18) expresion -> expresion . / expresion
+    (19) expresion -> expresion . < expresion
+    (20) expresion -> expresion . > expresion
+    (21) expresion -> expresion . MAYORIG expresion
+    (22) expresion -> expresion . MENORIG expresion
+    (23) expresion -> expresion . IGUAL expresion
+    (24) expresion -> expresion . DISYUNCION expresion
+    (25) expresion -> expresion . CONJUNCION expresion
+
+    ;               shift and go to state 189
+    +               shift and go to state 74
+    -               shift and go to state 75
+    *               shift and go to state 76
+    /               shift and go to state 77
+    <               shift and go to state 78
+    >               shift and go to state 79
+    MAYORIG         shift and go to state 80
+    MENORIG         shift and go to state 81
+    IGUAL           shift and go to state 82
+    DISYUNCION      shift and go to state 83
+    CONJUNCION      shift and go to state 84
+
+
+state 187
+
+    (74) contenido_funcion -> RETURN expresion ; .
+
+    }               reduce using rule 74 (contenido_funcion -> RETURN expresion ; .)
+
+
+state 188
+
+    (77) lineas_fun -> linea_normal_fun ; lineas_fun .
+
+    RETURN          reduce using rule 77 (lineas_fun -> linea_normal_fun ; lineas_fun .)
+
+
+state 189
+
+    (73) contenido_funcion -> lineas_fun RETURN expresion ; .
+
+    }               reduce using rule 73 (contenido_funcion -> lineas_fun RETURN expresion ; .)
+

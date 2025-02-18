@@ -1,0 +1,14 @@
+tr Tr TR
+fl FL FL
+let LEt LET
+int iNt INT
+float FloAt FLOAT
+character chAraCter CHARACTEr
+while WHile WHILE
+boolean Boolean BOOLEAN
+function funcTION FUNCTION
+return reTURN RETURN
+type Type TYPE
+if If IF
+else eLsE ELSE
+null nUll NULL

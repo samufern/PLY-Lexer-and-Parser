@@ -1,0 +1,13 @@
+hola
+que
+tal
+a
+
+"hola"
+"que"
+"tal"
+"a"
+
+'a'
+'Y'
+'N'

@@ -1,0 +1,7 @@
+let var3;
+
+if () {
+    var3 = 'Y';
+} else {
+    var3 = 'N';
+}

@@ -1,0 +1,7 @@
+type H = {hola: int};
+
+type V = {uno: int, dos:float};
+
+let var1 = {hola:2};
+
+let var2 = {uno:2, dos: 2.2};
