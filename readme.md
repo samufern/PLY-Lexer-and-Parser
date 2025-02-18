@@ -86,10 +86,6 @@ For further details on the design and implementation, please refer to the docume
 
 Contributions, suggestions, and bug reports are welcome. Please open an issue or submit a pull request.
 
-## License
-
-This project is licensed under the MIT License. (If a LICENSE file is provided, refer to it for details.)
-
 ## Contact
 
-For any inquiries, please contact the repository owner.
+For any inquiries, please contact me.
